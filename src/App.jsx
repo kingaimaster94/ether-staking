@@ -1,6 +1,6 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import './App.css'
-import './output.css'
+import './style.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header/Header'
