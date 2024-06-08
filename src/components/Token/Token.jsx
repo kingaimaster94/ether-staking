@@ -1,9 +1,11 @@
 import React from 'react';
 import TokenBadge from './TokenBadge';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Token = (props) => {
-    let message, string;
+    const { chain, token } = useParams();
+
+    let message;
     if (props.prop3.coin.badge != '') {
         message = <TokenBadge prop4={props.prop3.coin.badge} />
     } else {
@@ -13,7 +15,7 @@ const Token = (props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/tokendata');
+        navigate(`/pool/${chain}/${props.prop3.coin.symbol}`);
     };
 
     return (
