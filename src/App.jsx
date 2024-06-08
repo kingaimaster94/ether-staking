@@ -6,6 +6,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header'
 import Restaking from './components/page/Restaking';
 import Portfolio from './components/page/Portfolio'
+import TokenData from './components/page/TokenData';
+
+const networkId = [
+  'Ethereum',
+  'Arbitrum',
+]
+const coinId = [
+  'USDe',
+  'sFRAX',
+  'sUSDe',
+  'USDC',
+  'USDT'
+]
 
 function App() {
   // const account = useAccount()
@@ -20,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Restaking />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/tokendata" element={<TokenData />} />
           </Routes>
         </Router>
 

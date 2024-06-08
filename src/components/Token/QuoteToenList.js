@@ -18,7 +18,6 @@ export const tokenList = [
         logoSrc2: '',
         balance1: '0.00',
         balance2: '0.00',
-        
     },
     {
         name: 'USD',
@@ -29,6 +28,5 @@ export const tokenList = [
         logoSrc2: '',
         balance1: '0.00',
         balance2: '0.00',
-        
     }
 ];
