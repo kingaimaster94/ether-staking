@@ -30,12 +30,9 @@ const Header = () => {
             <p className="text-light-black font-nunito font-bold hover:underline">
               {pool.name}</p></a>)
         })}
-        <div className="flex items-center gap-2">
-          <div></div>
-          <button className={"bg-primary-orange text-white hover:brightness-75" + " py-2 px-4 rounded font-nunito font-bold disabled:cursor-not-allowed disabled:opacity-50"}>
-            Connect Wallet
-          </button>
-        </div>
+        <button className={"bg-primary-orange text-white hover:brightness-75" + " py-2 px-4 rounded font-nunito font-bold disabled:cursor-not-allowed disabled:opacity-50"}>
+          Connect Wallet
+        </button>
       </div>
 
     </div>
