@@ -12,7 +12,7 @@ const Title = (props) => {
     message = <div></div>;
   }
   return (
-    <div className="flex flex-col items-center mt-20 w-full gap-12">
+    <>
       <h1 className="text-light-black text-5xl lg:text-6xl font-bold font-gilroy pb-1">{props.prop.title}</h1>
       {message}
       <div className="flex flex-col lg:flex-row items-center gap-2 w-full md:w-9/12 lg:w-full">
@@ -22,7 +22,7 @@ const Title = (props) => {
           )
         })}
       </div>
-    </div>
+    </>
   );
 }
 

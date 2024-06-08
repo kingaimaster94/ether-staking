@@ -8,14 +8,14 @@ import Activity from '../Activity/Activity';
 
 const Portfolio = () => {
     return (
-        <div>
+        <>
             <div className="flex flex-col items-center mt-20 w-full gap-12">
                 <Title prop={{ title: 'Portfolio', TVL: '', contents: userinfo }} />
                 <Referal referral={{ refCode }} />
                 <QuoteTokens />
             </div>
             <Activity />
-        </div>
+        </>
 
     );
 }
