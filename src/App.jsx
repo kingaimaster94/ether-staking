@@ -17,7 +17,9 @@ const coinId = [
   'sFRAX',
   'sUSDe',
   'USDC',
-  'USDT'
+  'USDT',
+  'sDAI',
+
 ]
 
 function App() {
