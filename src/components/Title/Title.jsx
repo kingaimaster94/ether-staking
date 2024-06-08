@@ -9,7 +9,7 @@ const Title = (props) => {
       {props.prop.TVL}
     </div>
   } else {
-    message = <div></div>;
+    message = <></>;
   }
   return (
     <>

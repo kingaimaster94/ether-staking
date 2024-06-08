@@ -7,7 +7,7 @@ const ListToken = (props) => {
     if (props.prop1.badge != '') {
         message = <ListBadge prop2={props.prop1.badge} />
     } else {
-        message = <div></div>;
+        message = <></>;
     }
     return (
         <div className="mb-12">

@@ -1,18 +1,20 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const TokenData = () => {
     return (
-        <div className="flex flex-col gap-12 mt-24"><a href="/" previewlistener="true">
-            <span
-                className="flex items-center gap-1 text-light-black text-md hover:opacity-75 md:ml-28 lg:ml-0">
-                <svg
-                    className="h-5 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                Back
-            </span>
-        </a>
+        <div className="flex flex-col gap-12 mt-24">
+            <a href="/" previewlistener="true">
+                <span
+                    className="flex items-center gap-1 text-light-black text-md hover:opacity-75 md:ml-28 lg:ml-0">
+                    <svg
+                        className="h-5 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back
+                </span>
+            </a>
             <div className="flex flex-col justify-center items-center lg:items-start lg:flex-row gap-10 lg:gap-4 w-full">
                 <div className="flex flex-col gap-10 md:w-9/12 lg:w-6/12">
                     <div className="flex flex-row items-center gap-3">

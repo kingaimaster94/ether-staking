@@ -1,8 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import Title from '../Title/Title'
 import ChainCombo from '../Title/ChainCombo';
 import { xpearned } from './xpearned';
-import { stableCoins } from './stable';
+import { coins } from './coins';
 import ListToken from '../ListToken/ListToken';
 
 const items = [
@@ -14,14 +15,55 @@ const items = [
 ];
 
 const Restaking = () => {
+    const [chain, setChain] = useState('Ethereum');
+    let filteredCoins, stablecoins, lscoins, rscoins, pendlecoins, othercoins;
+
+    filteredCoins = coins.filter(coins => coins.network == chain);
+    stablecoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `STABLECOINS`);
+    lscoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `LIQUID STAKING`);
+    rscoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `LIQUID RESTAKING`);
+    pendlecoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `PENDLE`);
+    othercoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `OTHER`);
+
+    let stablemessage, lsmessage, rsmessage, pendlemessage, othermessage;
+
+    if (stablecoins.length > 0) {
+        stablemessage = <ListToken prop1={{ name: 'STABLECOINS', badge: '1.5X KARAK MULTIPLIER', coins: stablecoins }} />
+    } else {
+        stablemessage = <></>;
+    }
+    if (lscoins.length > 0) {
+        lsmessage = <ListToken prop1={{ name: 'LIQUID STAKING', badge: '1.5X KARAK MULTIPLIER', coins: lscoins }} />
+    } else {
+        lsmessage = <></>;
+    }
+    if (rscoins.length > 0) {
+        rsmessage = <ListToken prop1={{ name: 'LIQUID RESTAKING', badge: '', coins: rscoins }} />
+    } else {
+        rsmessage = <></>;
+    }
+    if (pendlecoins.length > 0) {
+        pendlemessage = <ListToken prop1={{ name: 'PENDLE', badge: '', coins: pendlecoins }} />
+    } else {
+        pendlemessage = <></>;
+    }
+    if (othercoins.length > 0) {
+        othermessage = <ListToken prop1={{ name: 'OTHER', badge: '1.5X KARAK MULTIPLIER', coins: othercoins }} />
+    } else {
+        othermessage = <></>;
+    }
+
+
     return (
         <div className="flex flex-col items-center mt-20 w-full gap-12">
             <Title prop={{ title: 'Restaking', TVL: '998,855,562', contents: xpearned }} />
             <div className="w-full lg:w-12/12 mt-16 mb-5">
                 {/* <ChainCombo items={items} /> */}
-                <ListToken prop1={{ name: 'STABLECOINS', badge: '1.5X KARAK MULTIPLIER', coins: stableCoins }} />
-                <ListToken prop1={{ name: 'STABLECOINS', badge: '1.5X KARAK MULTIPLIER', coins: stableCoins }} />
-                <ListToken prop1={{ name: 'STABLECOINS', badge: '1.5X KARAK MULTIPLIER', coins: stableCoins }} />
+                {stablemessage}
+                {lsmessage}
+                {rsmessage}
+                {pendlemessage}
+                {othermessage}
             </div>
         </div>
     );
