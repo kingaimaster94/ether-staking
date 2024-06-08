@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Spline+Sans+Mono:400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -287,7 +288,7 @@ img {
 @media only screen and (min-width: 1212px) {
 
   html {
-    font-size: 21px;
+    font-size: 16px;
   }
 
   #aave-image {

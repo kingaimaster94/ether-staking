@@ -3,9 +3,9 @@ import whiteLogo from '../../assets/logo-white.svg';
 
 const pools = [
   {
-    name: "Restake",
+    name: "Restaking",
     src: '/',
-    key: "restake",
+    key: "restaking",
   },
   {
     name: "Portfolio",
