@@ -65,14 +65,16 @@ const TokenData = () => {
     };
 
     const onClickGetDeposits = (event, data) => {
-        const id = event.target.id;
-        if (id == "tab:unstake") {
-            console.log("deposits amount", data);
+        console.log("deposits amount", data);
+        if (data[0].length >= 0) {
+            for (let index = 0; index < data[0].length; index++) {
+                if (coin.vaultAddress === data[0][index]) {
+                    setAmount(data[3][index]);
+                    console.log("data[3][index], ", data[3][index], index);
+                    break;
+                }
+            }
         }
-        console.log("deposits amount", data);
-        console.log("deposits amount", data);
-        console.log("deposits amount", data);
-        console.log("deposits amount", data);
     };
 
     async function onClickDeposit() {
@@ -168,7 +170,7 @@ const TokenData = () => {
                     <Tabs className='w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0' variant='line'>
                         <TabList>
                             <Tab id="tab:deposit" className="rounded-l-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }}>DEPOSIT</Tab>
-                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onClickGetDeposits(event, totalDeposits)}>UNSTAKE</Tab>
+                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onClickGetDeposits(event, totalDeposits.data)}>UNSTAKE</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel>
