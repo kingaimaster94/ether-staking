@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { coins } from '../data/coins';
 import { useAccount } from 'wagmi'
-import { useReadContract } from 'wagmi'
+import { useReadContract, useBalance } from 'wagmi'
 import { useWriteContract } from 'wagmi'
 import { abiVaultManager } from '../data/abi/VaultManager'
-import { config } from '../wagmi'
+import { abiDelegationManager } from '../data/abi/DelegationManager'
 
 const TokenData = () => {
     const { chain, token } = useParams();
@@ -16,15 +16,26 @@ const TokenData = () => {
 
     const { address, isConnecting, isDisconnected } = useAccount();
 
-    const wagmiContractConfig = {
+    const wagmiVaultManagerContractConfig = {
         address: `0x96CF98C8f22d5e116E53420608166aE979539b07`,
+        chainId: 97,
         abi: abiVaultManager,
     };
 
+    const wagmiDelegationManagerContractConfig = {
+        address: `0x67db92B043B1F2b2CFe44290c2fCe1d9a1faEf79`,
+        abi: abiDelegationManager,
+    };
     const vaults = useReadContract({
-        ...wagmiContractConfig,
+        ...wagmiVaultManagerContractConfig,
         functionName: 'getVaults',
     })
+
+    const { data } = useBalance({
+        address: address,
+    })
+    // console.log("result: ", result);
+
 
     // const vaults = useReadContract({
     //     abiVaultManager,
@@ -32,8 +43,19 @@ const TokenData = () => {
     //     functionName: 'getVaults',
     // })
 
-    console.log(vaults);
-    window.alert(vaults);
+    const tx = useWriteContract({
+        ...wagmiVaultManagerContractConfig,
+        functionName: 'deposit',
+        args: [`0xA7E0e0a43782c33163dD90AEcBA8c4bAB48f44d9`, 1000000000000000000000n, 100000000000000000n],
+    })
+
+    console.log("vaults: ", data?.value);
+    console.log("vaults: ", data?.value);
+    console.log("vaults: ", data?.value);
+    console.log("---------------------------------------------: ");
+    console.log("tx: ", data?.value);
+    console.log("tx: ", data?.value);
+    console.log("tx: ", data?.value);
 
     const [amount, setAmount] = useState(0);
     const handleClick = (event) => {
@@ -59,6 +81,7 @@ const TokenData = () => {
                             d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
                     Back
+
                 </span>
             </a>
             <div className="flex flex-col justify-center items-center lg:items-start lg:flex-row gap-10 lg:gap-4 w-full">
