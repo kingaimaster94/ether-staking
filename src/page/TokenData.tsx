@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { coins } from '../data/coins';
-import { useAccount, useReadContract, useBalance, useWriteContract } from 'wagmi'
+import { useAccount, useReadContract } from 'wagmi'
 import { abiVaultManager } from '../data/abi/VaultManager'
 import { abiDelegationManager } from '../data/abi/DelegationManager'
 import { abiIERC20 } from '../data/abi/IERC20';
-import { abiVault } from '../data/abi/Vault';
-import { vaultManagerAddress, delegationManagerAddress, monitorAddress, limiterAddress, adminAddress } from '../data/constants';
-import { readContract, writeContract, waitForTransactionReceipt } from '@wagmi/core'
+import { vaultManagerAddress, delegationManagerAddress } from '../data/constants';
+import { writeContract, waitForTransactionReceipt, simulateContract } from '@wagmi/core'
 import { config } from '../wagmi';
+import { decimalToEth, decimalFromEth } from '../utils/utils';
 
 interface WithdrawRequest {
     vaults: string[];
@@ -23,22 +23,7 @@ const TokenData = () => {
     const tokens = filteredCoins.filter(filteredCoins => filteredCoins.symbol == token);
     const coin = tokens[0];
 
-    const { address, isConnecting, isDisconnected } = useAccount();
-
-    const wagmiVaultManagerContractConfig = {
-        address: vaultManagerAddress,
-        abi: abiVaultManager,
-    };
-
-    const wagmiDelegationManagerContractConfig = {
-        address: delegationManagerAddress,
-        abi: abiDelegationManager,
-    };
-
-    const wagmiVaultContractConfig = {
-        address: coin.vaultAddress,
-        abi: abiDelegationManager,
-    };
+    const { address } = useAccount();
 
     const balance = useReadContract({
         address: coin.tokenAddress,
@@ -47,7 +32,10 @@ const TokenData = () => {
         args: [address],
     });
 
-    const [deposits, setDeposits] = useState(null);
+    const [ethBalance, setEthBalance] = useState(0);
+    const [amount, setAmount] = useState(0);
+    const [tokenBalance, setTokenBalance] = useState(0);
+
     const totalDeposits = useReadContract({
         address: vaultManagerAddress,
         abi: abiVaultManager,
@@ -55,22 +43,29 @@ const TokenData = () => {
         args: [address],
     });
 
-    const [amount, setAmount] = useState(0);
+    useEffect(() => {
+        const ethVal = decimalToEth(balance.data);
+        setEthBalance(ethVal);
+        const tokenVal = decimalFromEth(amount);
+        console.log("tokenVal: ", tokenVal);
+        setTokenBalance(tokenVal);
+    }, [balance, amount]);
+
+
     const onClickMax = (event, data) => {
         const id = event.target.id;
         if (id == "max-amount") {
-            const tBalance = Number(data) / Number(10 ** 18);
-            setAmount(tBalance.toString())
+            setAmount(ethBalance)
         }
     };
 
     const onClickGetDeposits = (event, data) => {
-        console.log("deposits amount", data);
         if (data[0].length >= 0) {
             for (let index = 0; index < data[0].length; index++) {
                 if (coin.vaultAddress === data[0][index]) {
-                    setAmount(data[3][index]);
-                    console.log("data[3][index], ", data[3][index], index);
+                    const stakedToken = decimalToEth(data[4][index]);
+                    setAmount(stakedToken);
+                    console.log("data[3][index], ", stakedToken);
                     break;
                 }
             }
@@ -98,25 +93,30 @@ const TokenData = () => {
     }
 
     async function onClickWithdraw() {
-        // const request: WithdrawRequest {
+        const request: WithdrawRequest = [
+            {
+                vaults: [coin.vaultAddress],
+                shares: [BigInt(amount * (10 ** 18))],
+                withdrawer: address
+            }
+        ]
+        const res_start = await simulateContract(config, {
+            address: delegationManagerAddress,
+            abi: abiDelegationManager,
+            functionName: 'startWithdraw',
+            args: [request],
+        });
 
-        // };
-        // const res_approve = await writeContract(config, {
-        //     address: delegationManagerAddress,
-        //     abi: abiDelegationManager,
-        //     functionName: 'withdrawalDelay',
-        //     args: [request],
-        // });
+        console.log("res_start: ", res_start);
+        const res_wait = await waitForTransactionReceipt(config, { hash: res_start });
 
-        // const res_wait = await waitForTransactionReceipt(config, { hash: res_approve });
-
-        const res_desposit = await writeContract(config, {
-            abi: abiVaultManager,
-            address: vaultManagerAddress,
-            functionName: 'deposit',
-            args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
-        })
-        const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
+        // const res_desposit = await writeContract(config, {
+        //     abi: abiVaultManager,
+        //     address: vaultManagerAddress,
+        //     functionName: 'deposit',
+        //     args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
+        // })
+        // const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
     }
 
     const onChangeAmount = (event) => {
@@ -197,7 +197,7 @@ const TokenData = () => {
                                                 className="flex flex-row items-center justify-between gap-4 bg-secondary-orange rounded-md w-full py-4 px-4">
                                                 <p className="font-nunito text-primary-orange text-md font-semibold tracking-wider">WALLET
                                                     BALANCE</p>
-                                                <h2 className=" text-light-black font-bold tracking-wide text-md">0.00 {coin.symbol}</h2>
+                                                <h2 className=" text-light-black font-bold tracking-wide text-md">{ethBalance.toString()} {coin.symbol}</h2>
                                             </div>
                                             <div
                                                 className="flex flex-row items-center justify-between gap-4 bg-secondary-orange rounded-md w-full py-4 px-4 -mt-4">
@@ -247,7 +247,7 @@ const TokenData = () => {
                                                 <h2 className=" text-light-black font-bold tracking-wide text-md">{chain}</h2>
                                             </div><button
                                                 className="bg-gradient-to-r from-orange-600 to-orange-300 hover:brightness-75 text-white py-5 px-4 rounded font-nunito text-xl font-bold w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                                                disabled="">
+                                                disabled="" onClick={onClickWithdraw}>
                                                 <div className="flex items-center justify-center gap-2">
                                                     Unstake
                                                 </div>
