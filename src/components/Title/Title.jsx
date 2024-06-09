@@ -15,13 +15,6 @@ const Title = (props) => {
     <>
       <h1 className="text-light-black text-5xl lg:text-6xl font-bold font-gilroy pb-1">{props.prop.title}</h1>
       {message}
-      <div className="flex flex-col lg:flex-row items-center gap-2 w-full md:w-9/12 lg:w-9/12">
-        {props.prop.contents.map((pool, index) => {
-          return (
-            <XPEarn pool={pool} key={index} />
-          )
-        })}
-      </div>
     </>
   );
 }

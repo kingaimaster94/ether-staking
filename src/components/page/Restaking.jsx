@@ -1,16 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import Title from '../Title/Title'
 import ChainCombo from '../Title/ChainCombo';
+import ListToken from '../ListToken/ListToken';
+import TVLCard from '../Title/TVLCard';
+import CardPanel from '../Title/CardPanel';
+
 import { xpearned } from './xpearned';
 import { coins } from './coins';
-import ListToken from '../ListToken/ListToken';
-
 const items = [
-    { value: 'pool1', label: 'Ethereum' },
-    { value: 'pool2', label: 'Arbitrum' },
-    { value: 'pool4', label: 'Mantle' },
-    { value: 'pool5', label: 'K2' },
+    { value: 'net1', label: 'Ethereum' },
+    { value: 'net2', label: 'Arbitrum' },
+    { value: 'net3', label: 'Mantle' },
+    { value: 'net4', label: 'K2' },
 ];
 
 const Restaking = () => {
@@ -55,7 +56,8 @@ const Restaking = () => {
 
     return (
         <div className="flex flex-col items-center mt-20 w-full gap-12">
-            <Title prop={{ title: 'Restaking', TVL: '998,855,562', contents: xpearned }} />
+            <h1 className="text-light-black text-5xl lg:text-6xl font-bold font-gilroy pb-1"> Restaking </h1>
+            <CardPanel content={xpearned} />
             <div className="w-full lg:w-12/12 mt-16 mb-5">
                 <ChainCombo items={items} />
                 {stablemessage}
@@ -64,6 +66,7 @@ const Restaking = () => {
                 {pendlemessage}
                 {othermessage}
             </div>
+            <TVLCard prop='998,855,562' />
         </div>
     );
 }

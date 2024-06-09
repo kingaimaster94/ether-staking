@@ -1,6 +1,6 @@
 import React from 'react';
 
-const XPEarn = (props) => {
+const Card = (props) => {
     return (
         <div className={"flex flex-col items-start " + props.pool.backColor + " rounded-md w-full h-36 py-8 px-8"}>
             <h2 className={"font-nunito " + props.pool.nameColor + " font-semibold text-3xl mb-4"}>{props.pool.balance}</h2>
@@ -29,4 +29,4 @@ const XPEarn = (props) => {
     );
 }
 
-export default XPEarn;
+export default Card;
