@@ -8,15 +8,26 @@ const QuoteToken = (props) => {
                     height="118" decoding="async" data-nimg="1" className="size-12 -mb-2"
                     srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbtc-restake.a506c637.png&amp;w=128&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbtc-restake.a506c637.png&amp;w=256&amp;q=75 2x"
                     src={props.prop.logoSrc1}
-                    styled="color: transparent;"></img>
-                <p className="text-white text-2xl" styled="text-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;">{props.prop.name}</p>
+                    style={{
+                        color: 'transparent'
+                    }}></img>
+                <p className="text-white text-2xl" style={{
+                    textShadow: 'rgba(0, 0, 0, 0.25) 0px 4px 4px',
+                }}>{props.prop.name}</p>
             </div>
             <div className="flex flex-row items-center justify-between gap-4 rounded-md w-full py-4 px-4 mb-3 z-10"
-                styled="background: linear-gradient(111deg, rgba(255, 255, 255, 0.4) -8.95%, rgba(255, 255, 255, 0.01) 114%); backdrop-filter: blur(11px); border: 0.25px solid rgba(255, 255, 255, 0.5);">
+                style={{
+                    background: 'linear-gradient(111deg, rgba(255, 255, 255, 0.4) -8.95%, rgba(255, 255, 255, 0.01) 114%)',
+                    backdropFilter: 'blur(11px)',
+                    border: '0.25px solid rgba(255, 255, 255, 0.5)',
+                }}
+            >
                 <div className="flex gap-1 items-center -ml-2">
                     <img alt="restaked-icon" loading="lazy" width="25"
                         height="25" decoding="async" data-nimg="1" className="size-6"
-                        src="/_next/static/media/restaked-icon.b762b93d.svg" styled="color: transparent;"></img>
+                        src="/_next/static/media/restaked-icon.b762b93d.svg" style={{
+                            color: 'transparent'
+                        }}></img>
                     <p className="text-white text-base font-nunito font-semibold">RESTAKED</p><span
                         className="group relative z-30">
                         <div
@@ -37,11 +48,18 @@ const QuoteToken = (props) => {
                 <h2 className=" text-white font-nunito font-bold tracking-wide text-lg">{props.prop.balance1}</h2>
             </div>
             <div className="flex flex-row items-center justify-between gap-4 backdrop-blur-md rounded-md w-full py-4 px-4"
-                styled="background: linear-gradient(111deg, rgba(255, 255, 255, 0.4) -8.95%, rgba(255, 255, 255, 0.01) 114%); backdrop-filter: blur(11px); border: 0.25px solid rgba(255, 255, 255, 0.5);">
+                style={{
+                    background: 'linear-gradient(111deg, rgba(255, 255, 255, 0.4) -8.95%, rgba(255, 255, 255, 0.01) 114%)',
+                    backdropFilter: 'blur(11px)',
+                    border: '0.25px solid rgba(255, 255, 255, 0.5)',
+                }}
+            >
                 <div className="flex gap-1 items-center -ml-2">
                     <img alt="restaked-icon" loading="lazy" width="25"
                         height="25" decoding="async" data-nimg="1" className="size-6"
-                        src="/_next/static/media/referred-icon.363463c5.svg" styled="color: transparent;"></img>
+                        src="/_next/static/media/referred-icon.363463c5.svg" style={{
+                            color: 'transparent'
+                        }}></img>
                     <p className="text-white text-base font-nunito font-semibold">REFERRED</p><span
                         className="group relative z-30">
                         <div
@@ -61,7 +79,7 @@ const QuoteToken = (props) => {
                 </div>
                 <h2 className=" text-white font-nunito font-bold tracking-wide text-lg">{props.prop.balance2}</h2>
             </div>
-        </div>
+        </div >
     );
 }
 

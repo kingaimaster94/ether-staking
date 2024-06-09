@@ -66,7 +66,7 @@ const Restaking = () => {
                 {pendlemessage}
                 {othermessage}
             </div>
-            <TVLCard prop='998,855,562' />
+            <TVLCard tvl='998,855,562' />
         </div>
     );
 }

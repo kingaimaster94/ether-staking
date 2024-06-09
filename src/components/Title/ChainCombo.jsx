@@ -18,13 +18,13 @@ const ChainCombo = ({ items }) => {
 
     return (
         <div className="mb-12" >
-            <div class="mr-auto mb-12">
+            <div className="mr-auto mb-12">
                 <div className="flex gap-2 items-center">
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme='orange'>
                             {curNetwork} Pools
                         </MenuButton>
-                        <MenuList>
+                        <MenuList zIndex={40}>
                             {items.map((item, index) => (
                                 <MenuItem key={index} onClick={() => onClickItem(item.label)}>
                                     <p className='flex flex-row gap-2'>
@@ -37,7 +37,7 @@ const ChainCombo = ({ items }) => {
                     </Menu>
                 </div>
             </div>
-            <div class="h-[1px] bg-slate-200 rounded-lg"></div>
+            <div className="h-[1px] bg-slate-200 rounded-lg"></div>
         </div >
     );
 };

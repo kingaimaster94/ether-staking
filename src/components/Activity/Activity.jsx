@@ -4,23 +4,31 @@ const Activity = (props) => {
     const [message, setMessage] = useState('You have no activity');
     const handleClick = (event, data) => {
         const id = event.target.id;
+
+        document.querySelectorAll("div.group > button").forEach((item, key) => {
+            item.classList.remove("active");
+        });
+
         if (id === 'All') {
-            setMessage('You have no activity')
+            setMessage('You have no activity');
+            document.getElementById("All").classList.add("active");
         }
         else if (id === 'Deposit') {
-            setMessage('You have no deposit')
+            setMessage('You have no deposit');
+            document.getElementById("Deposit").classList.add("active");
         }
         else if (id === 'Withdrawals') {
-            setMessage('You have no withdrawals')
+            setMessage('You have no withdrawals');
+            document.getElementById("Withdrawals").classList.add("active");
         }
     };
 
     return (
         <div className="flex flex-col items-center mt-20 w-full gap-6 bg-white shadow-md rounded-md p-8">
             <h2 className="text-light-black text-2xl font-nunito pb-1 mr-auto">ACTIVITY</h2>
-            <div className="flex flex-col custom-sm:flex-row gap-1 items-start custom-sm:items-center mr-auto">
+            <div className="group flex flex-col custom-sm:flex-row gap-1 items-start custom-sm:items-center mr-auto">
                 <button id='All'
-                    className="bg-primary-orange text-white text-base px-6 py-1 rounded-full hover:opacity-75 focus:hover:opacity-100"
+                    className="active text-white text-base px-6 py-1 rounded-full hover:opacity-75 focus:hover:opacity-100"
                     onClick={(event) => handleClick(event, 'Additional Data')}>
                     All
                 </button>

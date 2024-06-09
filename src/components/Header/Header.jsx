@@ -34,7 +34,6 @@ const Header = () => {
           Connect Wallet
         </button>
       </div>
-
     </div>
   );
 }

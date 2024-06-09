@@ -2783,3 +2783,14 @@ a {
     padding: 2.5rem;
   }
 }
+
+div.group > button.active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(223 94 0 / var(--tw-bg-opacity));
+  color: white;
+}
+
+div.group > button:not(.active) {
+  --tw-bg-opacity: 1;
+  color: rgb(183 183 183 / var(--tw-text-opacity));
+}
