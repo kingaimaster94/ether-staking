@@ -14,7 +14,7 @@ const items = [
 ];
 
 const Restaking = () => {
-    const [chain, setChain] = useState('Ethereum');
+    const [chain, setChain] = useState('BSC Testnet');
     let filteredCoins, stablecoins, lscoins, rscoins, pendlecoins, othercoins;
 
     filteredCoins = coins.filter(coins => coins.network == chain);
