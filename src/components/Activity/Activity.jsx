@@ -4,7 +4,6 @@ const Activity = (props) => {
     const [message, setMessage] = useState('You have no activity');
     const handleClick = (event, data) => {
         const id = event.target.id;
-        console.log(id);
         if (id === 'All') {
             setMessage('You have no activity')
         }
