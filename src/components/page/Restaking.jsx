@@ -10,8 +10,7 @@ import { coins } from './coins';
 const items = [
     { value: 'net1', label: 'Ethereum' },
     { value: 'net2', label: 'Arbitrum' },
-    { value: 'net3', label: 'Mantle' },
-    { value: 'net4', label: 'K2' },
+    { value: 'net3', label: 'BSC Testnet' },
 ];
 
 const Restaking = () => {

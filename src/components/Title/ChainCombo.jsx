@@ -10,7 +10,7 @@ import {
 import { CheckIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
 const ChainCombo = ({ items }) => {
-    const [curNetwork, setCurNetwork] = useState("Ethereum");
+    const [curNetwork, setCurNetwork] = useState("BSC Testnet");
 
     const onClickItem = (label) => {
         setCurNetwork(label);
