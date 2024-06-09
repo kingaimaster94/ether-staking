@@ -2,12 +2,24 @@ import React, { useState } from 'react';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { coins } from '../data/coins';
+import { useAccount } from 'wagmi'
+import { useReadContract } from 'wagmi'
+import { useWriteContract } from 'wagmi'
+import { abiVaultManager } from '../data/abi/VaultManager'
 
 const TokenData = () => {
     const { chain, token } = useParams();
     const filteredCoins = coins.filter(coins => coins.network == chain);
     const tokens = filteredCoins.filter(filteredCoins => filteredCoins.symbol == token);
     const coin = tokens[0];
+
+    const { address, isConnecting, isDisconnected } = useAccount();
+
+    const { vaults } = useReadContract({
+        ...wagmiContractConfig,
+        functionName: 'getVaults',
+        args: [],
+    })
 
     const [amount, setAmount] = useState(0);
     const handleClick = (event) => {
