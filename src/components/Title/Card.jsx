@@ -7,7 +7,6 @@ const Card = (props) => {
             <div className="flex gap-1 items-center -ml-2">
                 <img alt={props.pool.logoName} loading="lazy" width="152" height="153" decoding="async" data-nimg="1"
                     className="size-10 -mb-2"
-                    srcSet={props.pool.logoSrcSet}
                     src={props.pool.logoSrc}
                     styled="color: transparent"></img>
                 <p className={props.pool.nameColor + " text-xl"} style={props.pool.viewStyle}>{props.pool.name}</p>
