@@ -9,7 +9,7 @@ const Token = (props) => {
     if (props.prop3.coin.badge != '') {
         message = <TokenBadge prop4={props.prop3.coin.badge} />
     } else {
-        message = <div></div>;
+        message = <></>;
     }
 
     const navigate = useNavigate();
