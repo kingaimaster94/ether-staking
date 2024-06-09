@@ -21,7 +21,7 @@ const Header = () => {
         <div className="flex flex-row items-center gap-2 hover:brightness-90 hover:cursor-pointer">
           <img alt="logo" loading="lazy" width="34" height="34" decoding="async" data-nimg="1"
             src={whiteLogo} className="color: transparent;"></img>
-          <h1 className="text-primary-orange font-spline text-3xl font-light">Karak</h1>
+          <h1 className="text-primary-orange font-spline text-3xl font-light">Mad</h1>
         </div>
       </a>
       <div className="flex flex-col gap-4 header-sm:flex-row sm:gap-8 items-center">

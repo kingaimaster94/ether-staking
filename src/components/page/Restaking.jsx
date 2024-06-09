@@ -28,12 +28,12 @@ const Restaking = () => {
     let stablemessage, lsmessage, rsmessage, pendlemessage, othermessage;
 
     if (stablecoins.length > 0) {
-        stablemessage = <ListToken prop1={{ name: 'STABLECOINS', badge: '1.5X KARAK MULTIPLIER', coins: stablecoins }} />
+        stablemessage = <ListToken prop1={{ name: 'STABLECOINS', badge: '1.5X MAD MULTIPLIER', coins: stablecoins }} />
     } else {
         stablemessage = <></>;
     }
     if (lscoins.length > 0) {
-        lsmessage = <ListToken prop1={{ name: 'LIQUID STAKING', badge: '1.5X KARAK MULTIPLIER', coins: lscoins }} />
+        lsmessage = <ListToken prop1={{ name: 'LIQUID STAKING', badge: '1.5X MAD MULTIPLIER', coins: lscoins }} />
     } else {
         lsmessage = <></>;
     }
@@ -48,7 +48,7 @@ const Restaking = () => {
         pendlemessage = <></>;
     }
     if (othercoins.length > 0) {
-        othermessage = <ListToken prop1={{ name: 'OTHER', badge: '1.5X KARAK MULTIPLIER', coins: othercoins }} />
+        othermessage = <ListToken prop1={{ name: 'OTHER', badge: '1.5X MAD MULTIPLIER', coins: othercoins }} />
     } else {
         othermessage = <></>;
     }

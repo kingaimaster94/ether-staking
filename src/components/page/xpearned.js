@@ -1,10 +1,10 @@
 export const xpearned = [
     {
         name: "Restaking XP",
-        content: 'Your total XP rewards earned by restaking assets on Karak',
-        logoName: 'karak-logo',
-        logoSrc: 'karak-logo.png',
-        logoSrcSet: '../../assets/karak-logo.png',
+        content: 'Your total XP rewards earned by restaking assets on Mad',
+        logoName: 'Mad-logo',
+        logoSrc: 'Mad-logo.png',
+        logoSrcSet: '../../assets/Mad-logo.png',
         nameColor: 'text-light-black',
         balance: 0,
         backColor: 'bg-secondary-orange',

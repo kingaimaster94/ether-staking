@@ -1,10 +1,10 @@
 export const userinfo = [
     {
-        name: "Karak XP earned",
-        content: 'Your total XP rewards earned by restaking assets on Karak',
-        logoName: 'karak-logo',
-        logoSrc: '../../assets/karak-logo.png',
-        logoSrcSet: '../../assets/karak-logo.png',
+        name: "Mad XP earned",
+        content: 'Your total XP rewards earned by restaking assets on Mad',
+        logoName: 'Mad-logo',
+        logoSrc: '../../assets/Mad-logo.png',
+        logoSrcSet: '../../assets/Mad-logo.png',
         nameColor: 'text-light-black',
         balance: 0,
         backColor: 'bg-white shadow-md',
@@ -12,8 +12,8 @@ export const userinfo = [
         viewStyle: {},
     },
     {
-        name: "Users referred to Karak",
-        content: 'The amount of users you\'ve referred to Karak',
+        name: "Users referred to Mad",
+        content: 'The amount of users you\'ve referred to Mad',
         logoName: 'btc-logo',
         logoSrc: '../../assets/btc-logo.png',
         logoSrcSet: '../../assets/btc-logo.png',
