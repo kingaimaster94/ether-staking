@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import whiteLogo from '../../assets/logo-white.svg';
-import '../../ConnectWallet';
+// import '../../ConnectWallet';
 import { displayAddress } from '../../utils/utils';
 
 import { useAccount, useDisconnect } from 'wagmi'

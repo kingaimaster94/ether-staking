@@ -3,7 +3,6 @@ import './App.css'
 import './style.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './ConnectWallet';
 import Header from './components/Header/Header';
 import Restaking from './page/Restaking';
 import Portfolio from './page/Portfolio'
@@ -26,10 +25,6 @@ const coinId = [
 ]
 
 function App() {
-  // const account = useAccount()
-  // const { connectors, connect, status, error } = useConnect()
-  // const { disconnect } = useDisconnect()
-
   return (
     <>
       <main className="flex flex-col items-center m-auto p-5 sm:p-10 min-h-screen max-w-[1300px]">
