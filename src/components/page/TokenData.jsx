@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { coins } from './coins';
 
@@ -75,9 +76,24 @@ const TokenData = () => {
                         </p>
                     </div>
                 </div>
+
                 <div className="bg-white shadow-xl rounded-md w-full sm:w-9/12 md:w-7/12 lg:w-5/12 xl:w-[40%] lg:ml-auto h-fit">
-                    <div className="w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0"
-                        role="tablist" aria-orientation="horizontal">
+                    <Tabs className='w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0' variant='enclosed' >
+                        <TabList>
+                            <Tab className="bg-secondary-orange rounded-l-md font-[500] text-2xl w-6/12 p-4 track-wide focus:outline-none">DEPOSIT</Tab>
+                            <Tab className="transparent text-primary-gray rounded-r-md font-[500] text-2xl w-6/12 p-4 track-wide focus:outline-none">UNSTAKE</Tab>
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel>
+                                <p>DEPOSIT</p>
+                            </TabPanel>
+                            <TabPanel>
+                                <p>UNSTAKE</p>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+                    {/* <div className="w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0"
+                        role="tablist" aria-orientation="horizontal">                        
                         <button
                             className={deposit}
                             id="headlessui-tabs-tab-:r0:" role="tab" aria-selected="true" tabIndex="0"
@@ -137,7 +153,7 @@ const TokenData = () => {
                         </div><span aria-hidden="true" id="headlessui-tabs-panel-:r3:" role="tabpanel" tabIndex="-1"
                             aria-labelledby="headlessui-tabs-tab-:r1:"
                             styled="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"></span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
