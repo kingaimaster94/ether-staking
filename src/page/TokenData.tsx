@@ -168,7 +168,7 @@ const TokenData = () => {
                     <Tabs className='w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0' variant='line'>
                         <TabList>
                             <Tab id="tab:deposit" className="rounded-l-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }}>DEPOSIT</Tab>
-                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onClickGetDeposits(event, deposits)}>UNSTAKE</Tab>
+                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onClickGetDeposits(event, getdeposits)}>UNSTAKE</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel>
