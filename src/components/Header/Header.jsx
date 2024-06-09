@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import whiteLogo from '../../assets/logo-white.svg';
 import '../../ConnectWallet';
+import { displayAddress } from '../../utils/utils';
 
+import { useAccount, useDisconnect } from 'wagmi'
 import {
   createWeb3Modal,
   useWeb3Modal,
   useWeb3ModalEvents,
   useWeb3ModalState,
-  useWeb3ModalTheme
+  useWeb3ModalTheme,
 } from '@web3modal/wagmi/react'
 
 const pools = [
@@ -24,13 +26,13 @@ const pools = [
 ];
 
 const Header = () => {
-  const [isConnected, setIsConnected] = useState(false);
+  const { address, isConnecting, isDisconnected } = useAccount()
 
   // 4. Use modal hook
-  const modal = useWeb3Modal();
-  const state = useWeb3ModalState();
-  const events = useWeb3ModalEvents();
-  const { themeMode, themeVariables, setThemeMode } = useWeb3ModalTheme();
+  const modal = useWeb3Modal()
+  const state = useWeb3ModalState()
+  const events = useWeb3ModalEvents()
+  const { themeMode, themeVariables, setThemeMode } = useWeb3ModalTheme()
 
   async function connectWallet() {
     modal.open();
@@ -58,12 +60,14 @@ const Header = () => {
         <button
           className={"bg-primary-orange text-white hover:brightness-75" + " py-2 px-4 rounded font-nunito font-bold disabled:cursor-not-allowed disabled:opacity-50"}
           onClick={
-            isConnected
+            address
               ? () => disconnectWallet()
               : () => connectWallet()
           }
         >
-          Connect Wallet
+          {address
+            ? "Disconnect(" + displayAddress(address, 6) + ")"
+            : "Connect Wallet"}
         </button>
       </div>
     </div>
