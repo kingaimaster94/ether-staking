@@ -1,4 +1,4 @@
-import { WagmiProvider } from 'wagmi'
+import { WagmiProvider, createConfig, http } from 'wagmi'
 
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
@@ -20,11 +20,25 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-export const config = defaultWagmiConfig({
+// export const config = defaultWagmiConfig({
+//   chains: [mainnet, arbitrum, bscTestnet],
+//   projectId,
+//   metadata,
+//   // ...wagmiOptions // Optional - Override createConfig parameters
+// })
+
+export const config = createConfig({
   chains: [mainnet, arbitrum, bscTestnet],
-  projectId,
-  metadata,
-  // ...wagmiOptions // Optional - Override createConfig parameters
+  // connectors: [
+  //   injected(),
+  //   coinbaseWallet({ appName: 'Create Wagmi' }),
+  //   walletConnect({ projectId: import.meta.env.VITE_WC_PROJECT_ID }),
+  // ],
+  transports: {
+    [mainnet.id]: http(),
+    [arbitrum.id]: http(),
+    [bscTestnet.id]: http(),
+  },
 })
 
 // 3. Create modal
@@ -42,19 +56,6 @@ export const web3Modal = createWeb3Modal({
 //       < /WagmiProvider>
 //   )
 // }
-
-// export const config = createConfig({
-//   chains: [mainnet, sepolia],
-//   connectors: [
-//     injected(),
-//     coinbaseWallet({ appName: 'Create Wagmi' }),
-//     walletConnect({ projectId: import.meta.env.VITE_WC_PROJECT_ID }),
-//   ],
-//   transports: {
-//     [mainnet.id]: http(),
-//     [sepolia.id]: http(),
-//   },
-// })
 
 declare module 'wagmi' {
   interface Register {
