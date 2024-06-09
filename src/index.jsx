@@ -17,12 +17,12 @@ const queryClient = new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}> */}
-    <ChakraProvider>
-      <App />
-    </ChakraProvider>
-    {/* </QueryClientProvider>
-    </WagmiProvider> */}
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   </React.StrictMode>,
 )
