@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi'
 import { useReadContract } from 'wagmi'
 import { useWriteContract } from 'wagmi'
 import { abiVaultManager } from '../data/abi/VaultManager'
+import { config } from '../wagmi'
 
 const TokenData = () => {
     const { chain, token } = useParams();
@@ -16,10 +17,12 @@ const TokenData = () => {
     const { address, isConnecting, isDisconnected } = useAccount();
 
     const { vaults } = useReadContract({
-        ...wagmiContractConfig,
+        config,
         functionName: 'getVaults',
         args: [],
     })
+    console.log(vaults);
+    window.alert(vaults);
 
     const [amount, setAmount] = useState(0);
     const handleClick = (event) => {
