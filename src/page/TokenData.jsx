@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { coins } from './coins';
+import { coins } from '../data/coins';
 
 const TokenData = () => {
     const { chain, token } = useParams();

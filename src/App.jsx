@@ -4,9 +4,9 @@ import './style.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header/Header'
-import Restaking from './components/page/Restaking';
-import Portfolio from './components/page/Portfolio'
-import TokenData from './components/page/TokenData';
+import Restaking from './page/Restaking';
+import Portfolio from './page/Portfolio'
+import TokenData from './page/TokenData';
 
 const networkId = [
   'Ethereum',

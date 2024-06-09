@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import ChainCombo from '../Title/ChainCombo';
-import ListToken from '../ListToken/ListToken';
-import TVLCard from '../Title/TVLCard';
-import CardPanel from '../Title/CardPanel';
+import ChainCombo from '../components/Title/ChainCombo';
+import ListToken from '../components/ListToken/ListToken';
+import TVLCard from '../components/Title/TVLCard';
+import CardPanel from '../components/Title/CardPanel';
 
-import { xpearned } from './xpearned';
-import { coins } from './coins';
+import { xpearned } from '../data/xpearned';
+import { coins } from '../data/coins';
 const items = [
     { value: 'net1', label: 'Ethereum' },
     { value: 'net2', label: 'Arbitrum' },
@@ -15,6 +15,7 @@ const items = [
 
 const Restaking = () => {
     const [chain, setChain] = useState('BSC Testnet');
+
     let filteredCoins, stablecoins, lscoins, rscoins, pendlecoins, othercoins;
 
     filteredCoins = coins.filter(coins => coins.network == chain);
@@ -58,7 +59,7 @@ const Restaking = () => {
             <h1 className="text-light-black text-5xl lg:text-6xl font-bold font-gilroy pb-1"> Restaking </h1>
             <CardPanel content={xpearned} />
             <div className="w-full lg:w-12/12 mt-16 mb-5">
-                <ChainCombo items={items} />
+                <ChainCombo items={items} updateChain={setChain} />
                 {stablemessage}
                 {lsmessage}
                 {rsmessage}

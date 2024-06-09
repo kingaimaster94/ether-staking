@@ -1,11 +1,11 @@
 import React from 'react';
-import Referal from '../Referal/Referal';
-import QuoteTokens from '../Token/QuoteTokens';
-import Activity from '../Activity/Activity';
-import CardPanel from '../Title/CardPanel';
+import Referal from '../components/Referal/Referal';
+import QuoteTokens from '../components/Token/QuoteTokens';
+import Activity from '../components/Activity/Activity';
+import CardPanel from '../components/Title/CardPanel';
 
-import { refCode } from './referal';
-import { userinfo } from './userinfo';
+import { refCode } from '../data/referal';
+import { userinfo } from '../data/userinfo';
 
 const Portfolio = () => {
     return (

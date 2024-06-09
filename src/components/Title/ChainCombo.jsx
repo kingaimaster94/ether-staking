@@ -9,11 +9,12 @@ import {
 } from '@chakra-ui/react'
 import { CheckIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
-const ChainCombo = ({ items }) => {
-    const [curNetwork, setCurNetwork] = useState("BSC Testnet");
+const ChainCombo = ({ items, updateChain }) => {
+    const [curChain, setCurNetwork] = useState("BSC Testnet");
 
     const onClickItem = (label) => {
         setCurNetwork(label);
+        updateChain(label);
     }
 
     return (
@@ -22,14 +23,14 @@ const ChainCombo = ({ items }) => {
                 <div className="flex gap-2 items-center">
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme='orange'>
-                            {curNetwork} Pools
+                            {curChain} Pools
                         </MenuButton>
                         <MenuList zIndex={40}>
                             {items.map((item, index) => (
                                 <MenuItem key={index} onClick={() => onClickItem(item.label)}>
                                     <p className='flex flex-row gap-2'>
                                         <span>{item.label}</span>
-                                        <span>{(item.label == curNetwork) && < CheckIcon />}</span>
+                                        <span>{(item.label == curChain) && < CheckIcon />}</span>
                                     </p>
                                 </MenuItem>
                             ))}
