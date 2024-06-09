@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { coins } from '../data/coins';
-import { useAccount } from 'wagmi'
-import { useReadContract, useBalance } from 'wagmi'
-import { useWriteContract } from 'wagmi'
+import { useAccount, useReadContract, useBalance, useWriteContract } from 'wagmi'
 import { abiVaultManager } from '../data/abi/VaultManager'
 import { abiDelegationManager } from '../data/abi/DelegationManager'
+import { abiIERC20 } from '../data/abi/IERC20';
+import { abiVault } from '../data/abi/Vault';
+import { vaultManagerAddress, delegationManagerAddress, monitorAddress, limiterAddress, adminAddress } from '../data/constants';
+import { readContract, writeContract, waitForTransactionReceipt } from '@wagmi/core'
+import { config } from '../wagmi';
+
+interface WithdrawRequest {
+    vaults: string[];
+    shares: BigInt[];
+    withdrawer: string;
+}
 
 const TokenData = () => {
     const { chain, token } = useParams();
@@ -17,53 +26,96 @@ const TokenData = () => {
     const { address, isConnecting, isDisconnected } = useAccount();
 
     const wagmiVaultManagerContractConfig = {
-        address: `0x96CF98C8f22d5e116E53420608166aE979539b07`,
-        chainId: 97,
+        address: vaultManagerAddress,
         abi: abiVaultManager,
     };
 
     const wagmiDelegationManagerContractConfig = {
-        address: `0x67db92B043B1F2b2CFe44290c2fCe1d9a1faEf79`,
+        address: delegationManagerAddress,
         abi: abiDelegationManager,
     };
-    const vaults = useReadContract({
-        ...wagmiVaultManagerContractConfig,
-        functionName: 'getVaults',
-    })
 
-    const { data } = useBalance({
-        address: address,
-    })
-    // console.log("result: ", result);
+    const wagmiVaultContractConfig = {
+        address: coin.vaultAddress,
+        abi: abiDelegationManager,
+    };
 
+    const balance = useReadContract({
+        address: coin.tokenAddress,
+        abi: abiIERC20,
+        functionName: 'balanceOf',
+        args: [address],
+    });
 
-    // const vaults = useReadContract({
-    //     abiVaultManager,
-    //     address: '0x96CF98C8f22d5e116E53420608166aE979539b07',
-    //     functionName: 'getVaults',
-    // })
-
-    const tx = useWriteContract({
-        ...wagmiVaultManagerContractConfig,
-        functionName: 'deposit',
-        args: [`0xA7E0e0a43782c33163dD90AEcBA8c4bAB48f44d9`, 1000000000000000000000n, 100000000000000000n],
-    })
-
-    console.log("vaults: ", data?.value);
-    console.log("vaults: ", data?.value);
-    console.log("vaults: ", data?.value);
-    console.log("---------------------------------------------: ");
-    console.log("tx: ", data?.value);
-    console.log("tx: ", data?.value);
-    console.log("tx: ", data?.value);
+    const [deposits, setDeposits] = useState(null);
+    const getdeposits = useReadContract({
+        address: vaultManagerAddress,
+        abi: abiVaultManager,
+        functionName: 'getDeposits',
+        args: [vaultManagerAddress],
+    });
 
     const [amount, setAmount] = useState(0);
-    const handleClick = (event) => {
+    const onClickMax = (event, data) => {
         const id = event.target.id;
-        if (id === "max-amount") {
-            setAmount(1000000000);
+        if (id == "max-amount") {
+            const tBalance = Number(data) / Number(10 ** 18);
+            setAmount(tBalance.toString())
         }
     };
+
+    const onClickGetDeposits = (event, data) => {
+        const id = event.target.id;
+        if (id == "tab:unstake") {
+            console.log("deposits amount", data);
+        }
+        console.log("deposits amount", data);
+        console.log("deposits amount", data);
+        console.log("deposits amount", data);
+        console.log("deposits amount", data);
+    };
+
+    async function onClickDeposit() {
+        const res_approve = await writeContract(config, {
+            abi: abiIERC20,
+            address: coin.tokenAddress,
+            functionName: 'approve',
+            args: [coin.vaultAddress, BigInt(amount * (10 ** 18))]
+        })
+
+        const res_wait = await waitForTransactionReceipt(config, { hash: res_approve });
+
+        const res_desposit = await writeContract(config, {
+            abi: abiVaultManager,
+            address: vaultManagerAddress,
+            functionName: 'deposit',
+            args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
+        })
+        const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
+        console.log("kkkkkkkkkk", res_wait1);
+    }
+
+    async function onClickWithdraw() {
+        // const request: WithdrawRequest {
+
+        // };
+        // const res_approve = await writeContract(config, {
+        //     address: delegationManagerAddress,
+        //     abi: abiDelegationManager,
+        //     functionName: 'withdrawalDelay',
+        //     args: [request],
+        // });
+
+        // const res_wait = await waitForTransactionReceipt(config, { hash: res_approve });
+
+        const res_desposit = await writeContract(config, {
+            abi: abiVaultManager,
+            address: vaultManagerAddress,
+            functionName: 'deposit',
+            args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
+        })
+        const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
+    }
 
     const onChangeAmount = (event) => {
         console.log(event.target.value);
@@ -115,13 +167,13 @@ const TokenData = () => {
                 <div className="bg-white shadow-xl rounded-md w-full sm:w-9/12 md:w-7/12 lg:w-5/12 xl:w-[40%] lg:ml-auto h-fit">
                     <Tabs className='w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0' variant='line'>
                         <TabList>
-                            <Tab className="rounded-l-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }}>DEPOSIT</Tab>
-                            <Tab className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }}>UNSTAKE</Tab>
+                            <Tab id="tab:deposit" className="rounded-l-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }}>DEPOSIT</Tab>
+                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onClickGetDeposits(event, deposits)}>UNSTAKE</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel>
                                 <div className="px-5 py-8">
-                                    <div id="tab:deposit" role="tabpanel" tabIndex="0" data-headlessui-state="selected"
+                                    <div role="tabpanel" tabIndex="0" data-headlessui-state="selected"
                                         aria-labelledby="tab:deposit">
                                         <div className="flex flex-col gap-8">
                                             <div>
@@ -130,7 +182,7 @@ const TokenData = () => {
                                                     <p className="!absolute top-[1.15rem] right-24 text-light-black font-bold">{coin.symbol}</p>
                                                     <button id="max-amount"
                                                         className="!absolute right-3 top-4 z-10 select-none rounded bg-gradient-to-r from-orange-600 to-orange-300 py-1 px-4 text-center align-middle font-sans text-sm font-bold uppercase text-white hover:shadow-lg hover:brightness-75 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                                                        type="button" onClick={(event) => handleClick(event)}>
+                                                        type="button" onClick={(event) => onClickMax(event, balance.data)}>
                                                         MAX
                                                     </button>
                                                     <input
@@ -152,9 +204,9 @@ const TokenData = () => {
                                                     NETWORK</p>
                                                 <h2 className=" text-light-black font-bold tracking-wide text-md">{chain}</h2>
                                             </div>
-                                            <button
+                                            <button id='deposit'
                                                 className="bg-gradient-to-r from-orange-600 to-orange-300 hover:brightness-75 text-white py-5 px-4 rounded font-nunito text-xl font-bold w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                                                disabled="">
+                                                disabled="" onClick={onClickDeposit}>
                                                 <div className="flex items-center justify-center gap-2">
                                                     Deposit
                                                 </div>
@@ -167,7 +219,7 @@ const TokenData = () => {
                             </TabPanel>
                             <TabPanel>
                                 <div className="px-5 py-8">
-                                    <div id="tab:unstake" role="tabpanel" tabIndex="1" data-headlessui-state="selected"
+                                    <div role="tabpanel" tabIndex="1" data-headlessui-state="selected"
                                         aria-labelledby="headlessui-tabs-tab-:r0:">
                                         <div className="flex flex-col gap-8">
                                             <div>
@@ -176,7 +228,7 @@ const TokenData = () => {
                                                     <p className="!absolute top-[1.15rem] right-24 text-light-black font-bold">{coin.symbol}</p>
                                                     <button id="max-amount"
                                                         className="!absolute right-3 top-4 z-10 select-none rounded bg-gradient-to-r from-orange-600 to-orange-300 py-1 px-4 text-center align-middle font-sans text-sm font-bold uppercase text-white hover:shadow-lg hover:brightness-75 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                                                        type="button" onClick={(event) => handleClick(event)}>
+                                                        type="button" onClick={(event) => onClickMax(event, balance.data)}>
                                                         MAX
                                                     </button>
                                                     <input
