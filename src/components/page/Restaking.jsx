@@ -25,13 +25,6 @@ const Restaking = () => {
     pendlecoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `PENDLE`);
     othercoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `OTHER`);
 
-    console.log(`filteredCoins: `, filteredCoins);
-    console.log(`stablecoins: `, stablecoins);
-    console.log(`lscoins: `, lscoins);
-    console.log(`rscoins: `, rscoins);
-    console.log(`pendlecoins: `, pendlecoins);
-    console.log(`othercoins: `, othercoins);
-
     let stablemessage, lsmessage, rsmessage, pendlemessage, othermessage;
 
     if (stablecoins.length > 0) {
