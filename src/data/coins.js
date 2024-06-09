@@ -137,7 +137,8 @@ export const coins = [
         badge: "",
         tooltip: 'MweETH stakers earn 1.5x Mad XP.',
         desc: `WETH is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of MweETH is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. MweETH is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
-        tokenAddress: '0xd66c6B4F0be8CE5b39D52E0Fd1344c389929B378',
+        tokenAddress: `0xd66c6B4F0be8CE5b39D52E0Fd1344c389929B378`,
+        vaultAddress: `0x88cec897b03B459E393649dbB5df843b443691ee`,
     },
     {
         network: 'BSC Testnet',
@@ -147,6 +148,7 @@ export const coins = [
         badge: "",
         tooltip: 'MweCHK stakers earn 1.5x Mad XP.',
         desc: `MweCHK is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of MweCHK is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. USDC is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
-        tokenAddress: '0x9Cc479a479598E7e7f6Fe3C38f35C160006Aa021',
+        tokenAddress: `0x9Cc479a479598E7e7f6Fe3C38f35C160006Aa021`,
+        vaultAddress: `0xA7E0e0a43782c33163dD90AEcBA8c4bAB48f44d9`,
     },
 ];
