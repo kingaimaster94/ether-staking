@@ -16,11 +16,22 @@ const TokenData = () => {
 
     const { address, isConnecting, isDisconnected } = useAccount();
 
-    const { vaults } = useReadContract({
-        config,
+    const wagmiContractConfig = {
+        address: `0x96CF98C8f22d5e116E53420608166aE979539b07`,
+        abi: abiVaultManager,
+    };
+
+    const vaults = useReadContract({
+        ...wagmiContractConfig,
         functionName: 'getVaults',
-        args: [],
     })
+
+    // const vaults = useReadContract({
+    //     abiVaultManager,
+    //     address: '0x96CF98C8f22d5e116E53420608166aE979539b07',
+    //     functionName: 'getVaults',
+    // })
+
     console.log(vaults);
     window.alert(vaults);
 
