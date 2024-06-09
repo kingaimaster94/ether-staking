@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+// import { useAccount } from 'wagmi'
+// import { useReadContract } from 'wagmi'
+// import { abiVaultManager } from '../../data/abi/VaultManager'
 
 const Activity = (props) => {
     const [message, setMessage] = useState('You have no activity');
