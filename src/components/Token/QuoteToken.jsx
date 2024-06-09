@@ -6,11 +6,8 @@ const QuoteToken = (props) => {
             <div className="flex gap-1 items-center -ml-2 mb-6">
                 <img alt={props.prop.logo} loading="lazy" width="118"
                     height="118" decoding="async" data-nimg="1" className="size-12 -mb-2"
-                    srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbtc-restake.a506c637.png&amp;w=128&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbtc-restake.a506c637.png&amp;w=256&amp;q=75 2x"
-                    src={props.prop.logoSrc1}
-                    style={{
-                        color: 'transparent'
-                    }}></img>
+                    src={props.prop.logoSrc}
+                    style={{ color: 'transparent' }}></img>
                 <p className="text-white text-2xl" style={{
                     textShadow: 'rgba(0, 0, 0, 0.25) 0px 4px 4px',
                 }}>{props.prop.name}</p>
@@ -25,9 +22,7 @@ const QuoteToken = (props) => {
                 <div className="flex gap-1 items-center -ml-2">
                     <img alt="restaked-icon" loading="lazy" width="25"
                         height="25" decoding="async" data-nimg="1" className="size-6"
-                        src="/_next/static/media/restaked-icon.b762b93d.svg" style={{
-                            color: 'transparent'
-                        }}></img>
+                        src={props.prop.logoSrc} style={{ color: 'transparent' }}></img>
                     <p className="text-white text-base font-nunito font-semibold">RESTAKED</p><span
                         className="group relative z-30">
                         <div
@@ -57,9 +52,7 @@ const QuoteToken = (props) => {
                 <div className="flex gap-1 items-center -ml-2">
                     <img alt="restaked-icon" loading="lazy" width="25"
                         height="25" decoding="async" data-nimg="1" className="size-6"
-                        src="/_next/static/media/referred-icon.363463c5.svg" style={{
-                            color: 'transparent'
-                        }}></img>
+                        src={props.prop.logoSrc} style={{ color: 'transparent' }}></img>
                     <p className="text-white text-base font-nunito font-semibold">REFERRED</p><span
                         className="group relative z-30">
                         <div

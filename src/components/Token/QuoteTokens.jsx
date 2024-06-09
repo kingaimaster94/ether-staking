@@ -1,6 +1,6 @@
 import React from 'react';
 import QuoteToken from './QuoteToken';
-import { tokenList } from './QuoteToenList';
+import { tokenList } from '../../data/QuoteToenList';
 
 const QuoteTokens = (props) => {
     return (
