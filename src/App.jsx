@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       <DepositContext.Provider value={deposits}>
-        <main className="flex flex-col items-center m-auto p-5 sm:p-10 min-h-screen max-w-[1300px]">
+        <main className="flex flex-col items-center m-auto p-5 sm:p-10 min-h-screen max-w-[1300px] bg-gray">
           <Header />
           <Router>
             <Routes>

@@ -1,7 +1,7 @@
 export const tokenList = [
     {
         name: 'BTC',
-        bgColor: 'bg-light-orange',
+        bgColor: 'bg-light-blue',
         logo: 'btc',
         logoSrc: '/src/assets/images/btc-logo.png',
         logoSrc1: '',

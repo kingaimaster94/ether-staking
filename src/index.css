@@ -303,7 +303,7 @@ img {
 
 .network-div-focus {
   cursor: pointer;
-  border: 1px solid var(--components-primary-orange) !important;
+  border: 1px solid var(--components-primary-blue) !important;
   background: #FFF4ED;
 }
 
@@ -320,7 +320,7 @@ img {
 
 :root {
   /* global colors */
-  --components-primary-orange: #DF5E00;
+  --components-primary-blue: #008ddf;
   --banner-gradient-blue: linear-gradient(180deg, #001964 0%, #04278E 100%);
 
   /* left && right page padding */
