@@ -72,26 +72,20 @@ const PendingTable = (props) => {
                 if (isPending && (pending_time > withdrawPending)) {
                     withdrawArray.push(tblData[i]);
                 }
-                if ((isPending === false)) {
-                    // const txImplementation = await readContract({
-                    //     address: vaultManagerAddress,
-                    //     abi: abiVaultManager,
-                    //     functionName: 'implementation',
-                    //     chainId: 97,
-                    //     args: [tblData[i].request.vaults[0]],
-                    // });
-                    // console.log("txImplementation: ", txImplementation);
-                    // const txRemoveVault = await writeContract(config, {
-                    //     address: vaultManagerAddress,
-                    //     abi: abiVaultManager,
-                    //     functionName: 'returnShares',
-                    //     args: [tblData[i].request.vaults[0], tblData[i].request.shares[0]],
-                    //     account: vaultImplAddress.depositToken,
-                    // })
-                    // console.log("txRemoveVault: ", txRemoveVault);
-                    // const receiptRemveShares = await waitForTransactionReceipt(config, { hash: txRemoveVault });
-                    // console.log("receiptRemveShares: ", receiptRemveShares);
-                }
+                // else {
+                //     const txRemoveVault = await writeContract(config, {
+                //         address: vaultManagerAddress,
+                //         abi: abiVaultManager,
+                //         functionName: 'returnShares',
+                //         args: [tblData[i].request.vaults[0], tblData[i].request.shares[0]],
+                //         accessList: [{
+                //             address: vaultImplAddress,
+                //         }],
+                //     })
+                //     console.log("txRemoveVault: ", txRemoveVault);
+                //     const receiptRemveShares = await waitForTransactionReceipt(config, { hash: txRemoveVault });
+                //     console.log("receiptRemveShares: ", receiptRemveShares);
+                // }
             }
             if (withdrawArray.length > 0) {
                 console.log("withdrawArray: ", withdrawArray);

@@ -40,7 +40,7 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<Restaking />} />
-              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/portfolio/" element={<Portfolio />} />
               <Route path="/pool/:chain/:token" element={<TokenData />} />
             </Routes>
           </Router>
