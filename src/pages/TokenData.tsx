@@ -17,6 +17,14 @@ interface WithdrawRequest {
     withdrawer: string;
 }
 
+interface QueuedWithdrawal {
+    staker: string;
+    delegatedTo: string;
+    nonce: BigInt;
+    start: BigInt;
+    request: WithdrawRequest;
+}
+
 const TokenData = () => {
     const { chain, token } = useParams();
     const filteredCoins = coins.filter(coins => coins.network == chain);
@@ -107,16 +115,30 @@ const TokenData = () => {
             args: [request],
         });
 
-        console.log("res_start: ", res_start);
-        const res_wait = await waitForTransactionReceipt(config, { hash: res_start });
+        const withdrawalRoots = res_start.result[0];
+        const withdrawConfigs = res_start.result[1];
 
-        // const res_desposit = await writeContract(config, {
-        //     abi: abiVaultManager,
-        //     address: vaultManagerAddress,
-        //     functionName: 'deposit',
-        //     args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
-        // })
-        // const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
+        console.log("withdrawalRoots: ", withdrawalRoots);
+        console.log("withdrawConfigs: ", withdrawConfigs);
+        const res_start_wait = await waitForTransactionReceipt(config, { hash: res_start });
+
+        // const res_withdrawdelay = await simulateContract(config, {
+        //     address: delegationManagerAddress,
+        //     abi: abiDelegationManager,
+        //     functionName: 'withdrawalDelay',
+        //     args: [],
+        // });
+        // console.log("res_withdrawdelay: ", res_withdrawdelay);
+        // const res_witdrawdelay_wait = await waitForTransactionReceipt(config, { hash: res_withdrawdelay });
+
+        const res_finish = await simulateContract(config, {
+            abi: delegationManagerAddress,
+            address: abiDelegationManager,
+            functionName: 'finishWithdraw',
+            args: [withdrawConfigs]
+        })
+        console.log("res_finish: ", res_finish);
+        const res_wait1 = await waitForTransactionReceipt(config, { hash: res_finish });
     }
 
     const onChangeAmount = (event) => {
