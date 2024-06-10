@@ -51,6 +51,7 @@ const TokenData = () => {
     const tokens = filteredCoins.filter(filteredCoins => filteredCoins.symbol == token);
     const coin = tokens[0];
     const [showWarning, setShowWarning] = useState(true);
+    const [depositStep, setDepositStep] = useState(0);
 
     const { address } = useAccount();
 
@@ -65,6 +66,7 @@ const TokenData = () => {
     const [amount, setAmount] = useState(0);
     const [tokenBalance, setTokenBalance] = useState(0);
 
+    const [approvedAmount, setApprovedAmount] = useState(0);
 
     const receiptQueue = useReadContract({
         address: delegationManagerAddress,
@@ -118,15 +120,23 @@ const TokenData = () => {
     };
 
     async function onClickDeposit() {
-        const txapprove = await writeContract(config, {
-            abi: abiIERC20,
-            address: coin.tokenAddress,
-            functionName: 'approve',
-            args: [coin.vaultAddress, BigInt(amount * (10 ** 18))]
-        })
+        // const approvedData = await readContract({
+        //     abi: abiIERC20,
+        //     address: coin.tokenAddress,
+        //     functionName: 'allowance',
+        //     args: [address, coin.vaultAddress]
+        // })
+        console.log("-----------------");
+        console.log(approvedAmount);
 
-        const resApprove = await waitForTransactionReceipt(config, { hash: txapprove });
-        console.log("res_approve: ", resApprove.logs[0]);
+        if (amount > approvedAmount) {
+            // document.getElementById("modalCaption").html = "Deposit";
+            // document.getElementById("modalMsg").html = "Approved amount is less than deposit amount! Please approve more!";
+            // isOpen();
+
+            setDepositStep(0);
+            return;
+        }
 
         const txdesposit = await writeContract(config, {
             abi: abiVaultManager,
@@ -136,6 +146,35 @@ const TokenData = () => {
         })
         const resDeposit = await waitForTransactionReceipt(config, { hash: txdesposit });
         console.log("resDeposit: ", resDeposit.logs[0]);
+
+        setDepositStep(0);
+
+        // document.getElementById("modalCaption").html = "Deposit";
+        // document.getElementById("modalMsg").html = "Deposit success";
+        // isOpen();
+    }
+
+    async function onClickApprove() {
+        // approve amount
+        const txapprove = await writeContract(config, {
+            abi: abiIERC20,
+            address: coin.tokenAddress,
+            functionName: 'approve',
+            args: [coin.vaultAddress, BigInt(amount * (10 ** 18))]
+        })
+
+        const resApprove = await waitForTransactionReceipt(config, { hash: txapprove });
+        console.log("res_approve: ", resApprove);
+
+        setApprovedAmount(amount);
+        // set deposit step 1
+        setDepositStep(1);
+
+
+        // document.getElementById("modalCaption").html = "Approved";
+        // document.getElementById("modalMsg").html = "Approved success!";
+        // isOpen();
+        return;
     }
 
     async function onClickWithdraw() {
@@ -249,9 +288,9 @@ const TokenData = () => {
                                             </div>
                                             <button id='deposit'
                                                 className="bg-gradient-to-r from-blue-600 to-blue-300 hover:brightness-75 text-white py-5 px-4 rounded font-nunito text-xl font-bold w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                                                disabled="" onClick={onClickDeposit}>
+                                                disabled="" onClick={depositStep == 0 ? onClickApprove : onClickDeposit}>
                                                 <div className="flex items-center justify-center gap-2">
-                                                    Deposit
+                                                    {depositStep == 0 ? "Approve" : "Deposit"}
                                                 </div>
                                             </button>
                                             <div styled="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;">
@@ -315,10 +354,10 @@ const TokenData = () => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Unstaking</ModalHeader>
+                    <ModalHeader><p id="modalCaption">Unstaking</p></ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        Please note that for security purposes, unstaking will begin a 7-day queuing period which cannot be reversed, after which you can withdraw.
+                        <p id="modalMsg">Please note that for security purposes, unstaking will begin a 7-day queuing period which cannot be reversed, after which you can withdraw.</p>
                     </ModalBody>
 
                     <ModalFooter>
@@ -326,7 +365,7 @@ const TokenData = () => {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        </div>
+        </div >
     );
 }
 
