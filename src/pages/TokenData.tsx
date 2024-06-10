@@ -73,13 +73,6 @@ const TokenData = () => {
         args: [address],
     });
 
-    const receiptWithDrawalDelay = useReadContract({
-        address: delegationManagerAddress,
-        abi: abiDelegationManager,
-        functionName: 'withdrawalDelay',
-        args: [],
-    });
-
     const totalDeposits = useReadContract({
         address: vaultManagerAddress,
         abi: abiVaultManager,
@@ -93,15 +86,9 @@ const TokenData = () => {
         const tokenVal = decimalFromEth(amount);
         console.log("tokenVal: ", tokenVal);
         setTokenBalance(tokenVal);
-        if (receiptQueue.data) {
-            for (let index = 0; index < receiptQueue.data.length; index++) {
-
-            }
-        }
         console.log("receiptQueue: ", receiptQueue.data);
-        console.log("receiptWithDrawalDelay: ", receiptWithDrawalDelay.data);
-    }, [balance, amount, receiptQueue, receiptWithDrawalDelay]);
 
+    }, [balance, amount, receiptQueue]);
 
     const onClickMax = (event, data) => {
         const id = event.target.id;
@@ -122,7 +109,6 @@ const TokenData = () => {
                 if (coin.vaultAddress === data[0][index]) {
                     const stakedToken = decimalToEth(data[3][index]);
                     setAmount(stakedToken);
-                    console.log("data[3][index], ", stakedToken);
                     break;
                 }
             }
@@ -130,63 +116,46 @@ const TokenData = () => {
     };
 
     async function onClickDeposit() {
-        const res_approve = await writeContract(config, {
+        const txapprove = await writeContract(config, {
             abi: abiIERC20,
             address: coin.tokenAddress,
             functionName: 'approve',
             args: [coin.vaultAddress, BigInt(amount * (10 ** 18))]
         })
 
-        const res_wait = await waitForTransactionReceipt(config, { hash: res_approve });
+        const resApprove = await waitForTransactionReceipt(config, { hash: txapprove });
+        console.log("res_approve: ", resApprove.logs[0]);
 
-        const res_desposit = await writeContract(config, {
+        const txdesposit = await writeContract(config, {
             abi: abiVaultManager,
             address: vaultManagerAddress,
             functionName: 'deposit',
             args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
         })
-        const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
+        const resDeposit = await waitForTransactionReceipt(config, { hash: txdesposit });
+        console.log("resDeposit: ", resDeposit.logs[0]);
     }
 
     async function onClickWithdraw() {
+        if (amount > 0) {
+            const request: WithdrawRequest = [
+                {
+                    vaults: [coin.vaultAddress],
+                    shares: [BigInt(amount * (10 ** 18))],
+                    withdrawer: address
+                }
+            ]
+            const txStart = await writeContract(config, {
+                address: delegationManagerAddress,
+                abi: abiDelegationManager,
+                functionName: 'startWithdraw',
+                args: [request],
+            });
 
+            const receipStart = await waitForTransactionReceipt(config, { hash: txStart });
+            console.log("receipStart: ", receipStart.logs[0].data);
+        }
         console.log("receiptQueue: ", receiptQueue);
-
-
-        // const request: WithdrawRequest = [
-        //     {
-        //         vaults: [coin.vaultAddress],
-        //         shares: [BigInt(amount * (10 ** 18))],
-        //         withdrawer: address
-        //     }
-        // ]
-        // const txStart = await writeContract(config, {
-        //     address: delegationManagerAddress,
-        //     abi: abiDelegationManager,
-        //     functionName: 'startWithdraw',
-        //     args: [request],
-        // });
-
-        // const receipStart = await waitForTransactionReceipt(config, { hash: txStart });
-        // console.log("receipStart: ", receipStart.logs[0].data);
-
-        // const receiptDelay = await readContract(config, {
-        //     address: delegationManagerAddress,
-        //     abi: abiDelegationManager,
-        //     functionName: 'withdrawalDelay',
-        //     args: [],
-        // });
-        // console.log("receiptDealy: ", receiptDelay);
-
-        // const txFinish = await writeContract(config, {
-        //     abi: delegationManagerAddress,
-        //     address: abiDelegationManager,
-        //     functionName: 'finishWithdraw',
-        //     args: [receipStart.logs[0].data]
-        // })
-        // console.log("txFinish: ", txFinish);
-        // const receiptFinish = await waitForTransactionReceipt(config, { hash: txFinish });
-        // console.log("receiptFinish: ", receiptFinish);
     }
 
     const onChangeAmount = (event) => {
