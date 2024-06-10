@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { Tabs, TabList, Tab, TabPanels, TabPanel, AlertDescription } from '@chakra-ui/react';
 import {
     Tabs,
     TabList,
@@ -27,6 +26,8 @@ import { vaultManagerAddress, delegationManagerAddress } from '../data/constants
 import { writeContract, waitForTransactionReceipt, simulateContract } from '@wagmi/core'
 import { config } from '../wagmi';
 import { decimalToEth, decimalFromEth } from '../utils/utils';
+import PendingTable from "../components/Unstake/PendingTable";
+
 import { readContract } from 'viem/actions';
 
 interface WithdrawRequest {
@@ -321,6 +322,13 @@ const TokenData = () => {
                                                     Unstake
                                                 </div>
                                             </button>
+
+                                            <PendingTable 
+                                                tblData={{
+                                                    caption: "Pending Withdrawal",
+                                                    data: receiptQueue.data,
+                                                }} 
+                                            />
                                             <div styled="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;">
                                             </div>
                                         </div>
