@@ -153,7 +153,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'OTHER',
+        restakingType: 'OTHER',
         name: "Mad - Wrapped Prince",
         symbol: "MwePRC",
         badge: "",
@@ -164,7 +164,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'STABLECOIN',
+        restakingType: 'STABLECOINS',
         name: "Mad - Wrapped Cake",
         symbol: "MweCake",
         badge: "",
@@ -175,7 +175,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'OTHER',
+        restakingType: 'OTHER',
         name: "Mad - Wrapped PIE",
         symbol: "MweBTC",
         badge: "",
@@ -186,7 +186,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'LIQUID STAKING',
+        restakingType: 'LIQUID STAKING',
         name: "Mad - Wrapped lsCake",
         symbol: "MleCake",
         badge: "",
@@ -197,7 +197,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'LIQUID RESTAKING',
+        restakingType: 'LIQUID RESTAKING',
         name: "Mad - Wrapped lseCake",
         symbol: "MlseCake",
         badge: "",
@@ -208,7 +208,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'OTHER',
+        restakingType: 'OTHER',
         name: "Mad - Wrapped BNB",
         symbol: "mwBNB",
         badge: "",

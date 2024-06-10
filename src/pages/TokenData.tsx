@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
+import { Tabs, TabList, Tab, TabPanels, TabPanel, AlertDescription } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { coins } from '../data/coins';
 import { useAccount, useReadContract } from 'wagmi'
@@ -63,7 +63,7 @@ const TokenData = () => {
         if (data[0].length >= 0) {
             for (let index = 0; index < data[0].length; index++) {
                 if (coin.vaultAddress === data[0][index]) {
-                    const stakedToken = decimalToEth(data[4][index]);
+                    const stakedToken = decimalToEth(data[3][index]);
                     setAmount(stakedToken);
                     console.log("data[3][index], ", stakedToken);
                     break;
