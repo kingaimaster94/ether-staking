@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useContext } from "react";
 import Referal from '../components/Referal/Referal';
 import QuoteTokens from '../components/Token/QuoteTokens';
 import Activity from '../components/Activity/Activity';

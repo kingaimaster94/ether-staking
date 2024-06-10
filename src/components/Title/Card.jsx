@@ -1,6 +1,24 @@
-import React from 'react';
+import { React, useContext } from 'react';
+import { DepositContext } from '../../App';
 
 const Card = (props) => {
+    const deposits = useContext(DepositContext);
+
+    if (deposits != undefined && deposits.data != undefined) {
+        let vaultAddrArray = deposits?.data[0];     // valut address array
+        let tokenAddrArray = deposits?.data[1];     // token address array
+        let stakingAmountArray = deposits?.data[2];     // staking amount array
+        let shareAmountArray = deposits?.data[3];     // share amount array
+
+        for (let i = 0; i < tokenAddrArray.length; i++) {
+            if (tokenAddrArray[i] == props.pool.tokenAddress) {
+                props.pool.balance = decimalToEth(stakingAmountArray[i]);
+                console.log("Found!!!");
+                break;
+            }
+        }
+    }
+
     return (
         <div className={"flex flex-col items-start " + props.pool.backColor + " rounded-md w-full h-36 py-8 px-8"}>
             <h2 className={"font-nunito " + props.pool.nameColor + " font-semibold text-3xl mb-4"}>{props.pool.balance}</h2>
