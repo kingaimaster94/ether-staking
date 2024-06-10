@@ -14,3 +14,16 @@ export const decimalToEth = (amount) => {
 export const decimalFromEth = (amount) => {
   return BigInt(amount * (10 ** 18));
 }
+
+export function convertBigIntToDateString(bigIntTimestamp) {
+  // Convert BigInt to Number (multiply by 1000 if your BigInt is in seconds)
+  const timestampInMilliseconds = Number(bigIntTimestamp) * 1000;
+
+  // Create a Date object
+  const date = new Date(timestampInMilliseconds);
+
+  // Format the date as a string
+  const dateString = date.toLocaleString();
+
+  return dateString;
+}

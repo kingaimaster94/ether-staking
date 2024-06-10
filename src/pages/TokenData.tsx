@@ -117,7 +117,7 @@ const TokenData = () => {
             setShowWarning(false);
         }
 
-        if (data[0].length >= 0) {
+        if (data && data[0].length >= 0) {
             for (let index = 0; index < data[0].length; index++) {
                 if (coin.vaultAddress === data[0][index]) {
                     const stakedToken = decimalToEth(data[3][index]);
@@ -212,7 +212,7 @@ const TokenData = () => {
                 <div className="flex flex-col gap-10 md:w-9/12 lg:w-6/12">
                     <div className="flex flex-row items-center gap-3">
                         <img alt={coin.symbol} loading="lazy" width="55" height="55"
-                            decoding="async" data-nimg="1" className="rounded-full" src="/_next/static/media/usde.296f51e1.svg"
+                            decoding="async" data-nimg="1" className="rounded-full" src={`/src/assets/images/${coin.symbol}.svg`}
                             styled="color: transparent;"></img>
                         <h2 className="font-nunito text-light-black font-semibold text-xl sm:text-3xl tracking-wider">
                             {coin.name}
@@ -323,11 +323,11 @@ const TokenData = () => {
                                                 </div>
                                             </button>
 
-                                            <PendingTable 
+                                            <PendingTable
                                                 tblData={{
                                                     caption: "Pending Withdrawal",
                                                     data: receiptQueue.data,
-                                                }} 
+                                                }}
                                             />
                                             <div styled="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;">
                                             </div>
