@@ -1,7 +1,7 @@
 export const coins = [
     {
         network: 'Ethereum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "Ethena USDe",
         symbol: "USDe",
         badge: "20X ETHENA SATS",
@@ -11,7 +11,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "Staked Frax",
         symbol: "sFRAX",
         badge: "10M FRAX POINTS",
@@ -21,7 +21,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "Ethena Staked USDe",
         badge: "5X ETHENA SATS",
         symbol: "sUSDe",
@@ -31,7 +31,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "USD Coin",
         symbol: "USDC",
         badge: "",
@@ -41,7 +41,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "Tether USD",
         symbol: "USDT",
         badge: "",
@@ -51,7 +51,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "Savings DAI",
         symbol: "sDAI",
         badge: "",
@@ -61,7 +61,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'LIQUID STAKING',
+        restakingType: 'LIQUID STAKING',
         name: "Swell Ether",
         symbol: "swETH",
         badge: "",
@@ -71,7 +71,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'LIQUID STAKING',
+        restakingType: 'LIQUID STAKING',
         name: "Stake FRAX Ether",
         symbol: "sfrxETH",
         badge: "",
@@ -81,7 +81,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'LIQUID STAKING',
+        restakingType: 'LIQUID STAKING',
         name: "Lido Wrapped stETH",
         symbol: "wstETH",
         badge: "",
@@ -91,7 +91,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'LIQUID RESTAKING',
+        restakingType: 'LIQUID RESTAKING',
         name: "Restake Swell Ether",
         symbol: "rswETH",
         badge: "",
@@ -101,7 +101,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'PENDLE',
+        restakingType: 'PENDLE',
         name: "Pendle rswETH 6/27",
         symbol: "PT-rswETH",
         badge: "",
@@ -111,7 +111,7 @@ export const coins = [
     },
     {
         network: 'Ethereum',
-        assetType: 'OTHER',
+        restakingType: 'OTHER',
         name: "Wrapped Bitcoin",
         symbol: "wBTC",
         badge: "",
@@ -121,7 +121,7 @@ export const coins = [
     },
     {
         network: 'Arbitrum',
-        assetType: 'STABLECOINS',
+        restakingType: 'STABLECOINS',
         name: "USD Coin",
         symbol: "USDC",
         badge: "",
@@ -131,7 +131,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'OTHER',
+        restakingType: 'OTHER',
         name: "Mad - Wrapped eETH",
         symbol: "MweETH",
         badge: "",
@@ -142,7 +142,7 @@ export const coins = [
     },
     {
         network: 'BSC Testnet',
-        assetType: 'OTHER',
+        restakingType: 'OTHER',
         name: "Mad - Wrapped CHK",
         symbol: "MweCHK",
         badge: "",

@@ -19,11 +19,11 @@ const Restaking = () => {
     let filteredCoins, stablecoins, lscoins, rscoins, pendlecoins, othercoins;
 
     filteredCoins = coins.filter(coins => coins.network == chain);
-    stablecoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `STABLECOINS`);
-    lscoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `LIQUID STAKING`);
-    rscoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `LIQUID RESTAKING`);
-    pendlecoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `PENDLE`);
-    othercoins = filteredCoins.filter(filteredCoins => filteredCoins.assetType == `OTHER`);
+    stablecoins = filteredCoins.filter(filteredCoins => filteredCoins.restakingType == `STABLECOINS`);
+    lscoins = filteredCoins.filter(filteredCoins => filteredCoins.restakingType == `LIQUID STAKING`);
+    rscoins = filteredCoins.filter(filteredCoins => filteredCoins.restakingType == `LIQUID RESTAKING`);
+    pendlecoins = filteredCoins.filter(filteredCoins => filteredCoins.restakingType == `PENDLE`);
+    othercoins = filteredCoins.filter(filteredCoins => filteredCoins.restakingType == `OTHER`);
 
     let stablemessage, lsmessage, rsmessage, pendlemessage, othermessage;
 

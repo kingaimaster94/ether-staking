@@ -20,6 +20,8 @@ export const xpearned = [
         backColor: 'bg-light-orange',
         contentColor: "text-gray-100",
         viewStyle: { textShadow: 'rgba(0, 0, 0, 0.25) 0px 4px 4px' },
+        tokenAddress: '',
+        vaultAddress: '',
     },
     {
         name: "ETH Restaked",
@@ -31,6 +33,8 @@ export const xpearned = [
         backColor: 'bg-blue-gray',
         contentColor: "text-gray-100",
         viewStyle: { textShadow: 'rgba(0, 0, 0, 0.25) 0px 4px 4px' },
+        tokenAddress: '',
+        vaultAddress: '',
     },
     {
         name: "USD Restaked",
@@ -42,5 +46,7 @@ export const xpearned = [
         backColor: 'bg-primary-blue',
         contentColor: "text-gray-100",
         viewStyle: { textShadow: 'rgba(0, 0, 0, 0.25) 0px 4px 4px' },
+        tokenAddress: '',
+        vaultAddress: '',
     },
 ];
