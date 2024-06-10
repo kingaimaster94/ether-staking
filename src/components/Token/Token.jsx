@@ -49,7 +49,7 @@ const Token = (props) => {
                         {props.coinData.name}
                     </h2>
                     <div
-                        className="bg-secondary-orange rounded-md py-2 px-4 md:py-1 md:px-2 text-primary-orange font-nunito text-base md:text-sm font-semibold ml-auto">
+                        className="bg-secondary-blue rounded-md py-2 px-4 md:py-1 md:px-2 text-primary-blue font-nunito text-base md:text-sm font-semibold ml-auto">
                         {props.coinData.symbol}
                     </div>
                 </div>

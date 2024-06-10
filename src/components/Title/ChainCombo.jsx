@@ -22,7 +22,7 @@ const ChainCombo = ({ items, updateChain }) => {
             <div className="mr-auto mb-12">
                 <div className="flex gap-2 items-center">
                     <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme='orange'>
+                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme='blue'>
                             {curChain} Pools
                         </MenuButton>
                         <MenuList zIndex={40}>
