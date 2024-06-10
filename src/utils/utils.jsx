@@ -12,7 +12,7 @@ export const decimalToEth = (amount) => {
 }
 
 export const decimalFromEth = (amount) => {
-  return BigInt(amount * (10 ** 18));
+  return BigInt(Math.ceil(amount * (10 ** 18)));
 }
 
 export function convertBigIntToDateString(bigIntTimestamp) {

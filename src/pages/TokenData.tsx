@@ -296,6 +296,7 @@ const TokenData = () => {
                                                 tblData={{
                                                     caption: "Pending Withdrawal",
                                                     data: receiptQueue.data,
+                                                    vault: coin.vaultAddress,
                                                 }}
                                             />
                                             <div styled="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;">

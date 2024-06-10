@@ -1,10 +1,10 @@
-import { React, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import TokenBadge from './TokenBadge';
 import { useNavigate } from 'react-router-dom';
+import { DepositContext } from '../../App';
+import { decimalToEth } from '../../utils/utils';
 
 const Token = (props) => {
-    const [balance, setBalance] = useState(0);
-
     let message;
     if (props.coinData.badge != '') {
         message = <TokenBadge prop4={props.coinData.badge} />
@@ -17,6 +17,23 @@ const Token = (props) => {
     const onClickToken = () => {
         navigate(`/pool/${props.coinData.network}/${props.coinData.symbol}`);
     };
+
+    const deposits = useContext(DepositContext);
+
+    if (deposits != undefined && deposits.length > 3) {
+        let vaultAddrArray = deposits[0];     // valut address array
+        let tokenAddrArray = deposits[1];     // token address array
+        let stakingAmountArray = deposits[2];     // staking amount array
+        let shareAmountArray = deposits[3];     // share amount array
+
+        for (let i = 0; i < tokenAddrArray.length; i++) {
+            if (tokenAddrArray[i] == props.coinData.tokenAddress) {
+                props.coinData.balance = decimalToEth(stakingAmountArray[i]);
+                console.log("Found!!!");
+                break;
+            }
+        }
+    }
 
     return (
         <div className="bg-white group shadow-lg px-6 py-8 rounded-md hover:brightness-95 cursor-pointer hover:z-30" onClick={onClickToken}>

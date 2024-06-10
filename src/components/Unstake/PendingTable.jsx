@@ -23,7 +23,7 @@ import { coins } from '../../data/coins';
 import { useAccount, useReadContract } from 'wagmi'
 import { abiDelegationManager } from '../../data/abi/DelegationManager'
 import { abiVaultManager } from '../../data/abi/VaultManager'
-import { delegationManagerAddress, vaultManagerAddress } from '../../data/constants';
+import { delegationManagerAddress, vaultManagerAddress, vaultImplAddress } from '../../data/constants';
 import { writeContract, waitForTransactionReceipt, readContract } from '@wagmi/core'
 import { config } from '../../wagmi';
 import { decimalToEth, convertBigIntToDateString } from '../../utils/utils';
@@ -35,6 +35,7 @@ const PendingTable = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const tblCaption = props.tblData.caption;
     const tblData = props.tblData.data;
+    const tblVaultAddress = props.tblData.vault;
 
     const [withdrawPending, setWithdrawPending] = useState(0);
     const receiptWithDrawalDelay = useReadContract({
@@ -72,15 +73,24 @@ const PendingTable = (props) => {
                     withdrawArray.push(tblData[i]);
                 }
                 if ((isPending === false)) {
-                    const txRemoveVault = await writeContract(config, {
-                        address: vaultManagerAddress,
-                        abi: abiVaultManager,
-                        functionName: 'returnShares',
-                        args: [tblData[i].request.vaults[0], tblData[i].request.shares[0]]
-                    })
-                    console.log("txRemoveVault: ", txRemoveVault);
-                    const receiptRemveShares = await waitForTransactionReceipt(config, { hash: txRemoveVault });
-                    console.log("receiptRemveShares: ", receiptRemveShares);
+                    // const txImplementation = await readContract({
+                    //     address: vaultManagerAddress,
+                    //     abi: abiVaultManager,
+                    //     functionName: 'implementation',
+                    //     chainId: 97,
+                    //     args: [tblData[i].request.vaults[0]],
+                    // });
+                    // console.log("txImplementation: ", txImplementation);
+                    // const txRemoveVault = await writeContract(config, {
+                    //     address: vaultManagerAddress,
+                    //     abi: abiVaultManager,
+                    //     functionName: 'returnShares',
+                    //     args: [tblData[i].request.vaults[0], tblData[i].request.shares[0]],
+                    //     account: vaultImplAddress.depositToken,
+                    // })
+                    // console.log("txRemoveVault: ", txRemoveVault);
+                    // const receiptRemveShares = await waitForTransactionReceipt(config, { hash: txRemoveVault });
+                    // console.log("receiptRemveShares: ", receiptRemveShares);
                 }
             }
             if (withdrawArray.length > 0) {
@@ -115,12 +125,15 @@ const PendingTable = (props) => {
                     </Thead>
                     <Tbody>
                         {tblData && tblData.map((element, index) => {
-                            return (
-                                <Tr key={index}>
-                                    <Td>{convertBigIntToDateString(element.start)}</Td>
-                                    <Td>{decimalToEth(element.request.shares[0]).toFixed(2)}</Td>
-                                </Tr>
-                            );
+                            console.log(element.request.vaults[0], tblVaultAddress)
+                            if (element.request.vaults[0] == tblVaultAddress) {
+                                return (
+                                    <Tr key={index}>
+                                        <Td>{convertBigIntToDateString(element.start)}</Td>
+                                        <Td>{decimalToEth(element.request.shares[0]).toFixed(2)}</Td>
+                                    </Tr>
+                                );
+                            }
                         })
                         }
                     </Tbody>
