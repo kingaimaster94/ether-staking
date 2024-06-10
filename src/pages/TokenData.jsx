@@ -81,12 +81,14 @@ const TokenData = () => {
     });
 
     useEffect(() => {
-        const ethVal = decimalToEth(balance.data);
-        setEthBalance(ethVal);
-        const tokenVal = decimalFromEth(amount);
-        console.log("tokenVal: ", tokenVal);
-        setTokenBalance(tokenVal);
-        console.log("receiptQueue: ", receiptQueue.data);
+        if (balance && balance.data) {
+            const ethVal = decimalToEth(balance.data);
+            setEthBalance(ethVal);
+        }
+        // const tokenVal = decimalFromEth(amount);
+        // console.log("tokenVal: ", tokenVal);
+        // setTokenBalance(tokenVal);
+        // console.log("receiptQueue: ", receiptQueue.data);
 
     }, [balance, amount, receiptQueue]);
 

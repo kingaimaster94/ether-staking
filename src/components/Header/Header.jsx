@@ -46,9 +46,9 @@ const Header = () => {
     <div className="w-full flex flex-col gap-4 header-sm:gap-0 header-sm:flex-row items-center justify-between">
       <a href="/" previewlistener="true">
         <div className="flex flex-row items-center gap-2 hover:brightness-90 hover:cursor-pointer">
-          <img alt="logo" loading="lazy" width="64" height="64" decoding="async" data-nimg="1"
+          <img alt="logo" loading="lazy" width="128" height="64" decoding="async" data-nimg="1"
             src={whiteLogo} className="color: transparent;"></img>
-          <h1 className="text-primary-blue font-bold font-spline text-3xl font-light">Mad</h1>
+          {/* <h1 className="text-primary-blue font-bold font-spline text-3xl font-light">Mad</h1> */}
         </div>
       </a>
       <div className="flex flex-col gap-4 header-sm:flex-row sm:gap-8 items-center">
