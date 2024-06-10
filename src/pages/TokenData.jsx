@@ -30,19 +30,19 @@ import PendingTable from "../components/Unstake/PendingTable";
 
 import { readContract } from 'viem/actions';
 
-interface WithdrawRequest {
-    vaults: string[];
-    shares: BigInt[];
-    withdrawer: string;
-}
+// interface WithdrawRequest {
+//     vaults: string[];
+//     shares: BigInt[];
+//     withdrawer: string;
+// }
 
-interface QueuedWithdrawal {
-    staker: string;
-    delegatedTo: string;
-    nonce: BigInt;
-    start: BigInt;
-    request: WithdrawRequest;
-}
+// interface QueuedWithdrawal {
+//     staker: string;
+//     delegatedTo: string;
+//     nonce: BigInt;
+//     start: BigInt;
+//     request: WithdrawRequest;
+// }
 
 const TokenData = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -138,7 +138,7 @@ const TokenData = () => {
 
     async function onClickWithdraw() {
         if (amount > 0) {
-            const request: WithdrawRequest = [
+            const request = [
                 {
                     vaults: [coin.vaultAddress],
                     shares: [BigInt(amount * (10 ** 18))],
