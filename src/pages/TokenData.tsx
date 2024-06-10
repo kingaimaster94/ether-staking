@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 // import { Tabs, TabList, Tab, TabPanels, TabPanel, AlertDescription } from '@chakra-ui/react';
 import {
-    Tabs, 
-    TabList, 
-    Tab, 
-    TabPanels, 
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
     TabPanel,
     Button,
     Modal,
@@ -27,6 +27,7 @@ import { vaultManagerAddress, delegationManagerAddress } from '../data/constants
 import { writeContract, waitForTransactionReceipt, simulateContract } from '@wagmi/core'
 import { config } from '../wagmi';
 import { decimalToEth, decimalFromEth } from '../utils/utils';
+import { readContract } from 'viem/actions';
 
 interface WithdrawRequest {
     vaults: string[];
@@ -63,6 +64,21 @@ const TokenData = () => {
     const [amount, setAmount] = useState(0);
     const [tokenBalance, setTokenBalance] = useState(0);
 
+
+    const receiptQueue = useReadContract({
+        address: delegationManagerAddress,
+        abi: abiDelegationManager,
+        functionName: 'fetchQueuedWithdrawals',
+        args: [address],
+    });
+
+    const receiptWithDrawalDelay = useReadContract({
+        address: delegationManagerAddress,
+        abi: abiDelegationManager,
+        functionName: 'withdrawalDelay',
+        args: [],
+    });
+
     const totalDeposits = useReadContract({
         address: vaultManagerAddress,
         abi: abiVaultManager,
@@ -76,7 +92,14 @@ const TokenData = () => {
         const tokenVal = decimalFromEth(amount);
         console.log("tokenVal: ", tokenVal);
         setTokenBalance(tokenVal);
-    }, [balance, amount]);
+        if (receiptQueue.data) {
+            for (let index = 0; index < receiptQueue.data.length; index++) {
+
+            }
+        }
+        console.log("receiptQueue: ", receiptQueue.data);
+        console.log("receiptWithDrawalDelay: ", receiptWithDrawalDelay.data);
+    }, [balance, amount, receiptQueue, receiptWithDrawalDelay]);
 
 
     const onClickMax = (event, data) => {
@@ -87,7 +110,7 @@ const TokenData = () => {
     };
 
     const onUnstakeTabClicked = (event, data) => {
-        if ( showWarning ) {
+        if (showWarning) {
             onOpen();
 
             setShowWarning(false);
@@ -122,48 +145,47 @@ const TokenData = () => {
             args: [coin.vaultAddress, BigInt(amount * (10 ** 18)), BigInt(amount * (10 ** 16))]
         })
         const res_wait1 = await waitForTransactionReceipt(config, { hash: res_desposit });
-        console.log("kkkkkkkkkk", res_wait1);
     }
 
     async function onClickWithdraw() {
-        const request: WithdrawRequest = [
-            {
-                vaults: [coin.vaultAddress],
-                shares: [BigInt(amount * (10 ** 18))],
-                withdrawer: address
-            }
-        ]
-        const res_start = await simulateContract(config, {
-            address: delegationManagerAddress,
-            abi: abiDelegationManager,
-            functionName: 'startWithdraw',
-            args: [request],
-        });
 
-        const withdrawalRoots = res_start.result[0];
-        const withdrawConfigs = res_start.result[1];
+        console.log("receiptQueue: ", receiptQueue);
 
-        console.log("withdrawalRoots: ", withdrawalRoots);
-        console.log("withdrawConfigs: ", withdrawConfigs);
-        const res_start_wait = await waitForTransactionReceipt(config, { hash: res_start });
 
-        // const res_withdrawdelay = await simulateContract(config, {
+        // const request: WithdrawRequest = [
+        //     {
+        //         vaults: [coin.vaultAddress],
+        //         shares: [BigInt(amount * (10 ** 18))],
+        //         withdrawer: address
+        //     }
+        // ]
+        // const txStart = await writeContract(config, {
+        //     address: delegationManagerAddress,
+        //     abi: abiDelegationManager,
+        //     functionName: 'startWithdraw',
+        //     args: [request],
+        // });
+
+        // const receipStart = await waitForTransactionReceipt(config, { hash: txStart });
+        // console.log("receipStart: ", receipStart.logs[0].data);
+
+        // const receiptDelay = await readContract(config, {
         //     address: delegationManagerAddress,
         //     abi: abiDelegationManager,
         //     functionName: 'withdrawalDelay',
         //     args: [],
         // });
-        // console.log("res_withdrawdelay: ", res_withdrawdelay);
-        // const res_witdrawdelay_wait = await waitForTransactionReceipt(config, { hash: res_withdrawdelay });
+        // console.log("receiptDealy: ", receiptDelay);
 
-        const res_finish = await simulateContract(config, {
-            abi: delegationManagerAddress,
-            address: abiDelegationManager,
-            functionName: 'finishWithdraw',
-            args: [withdrawConfigs]
-        })
-        console.log("res_finish: ", res_finish);
-        const res_wait1 = await waitForTransactionReceipt(config, { hash: res_finish });
+        // const txFinish = await writeContract(config, {
+        //     abi: delegationManagerAddress,
+        //     address: abiDelegationManager,
+        //     functionName: 'finishWithdraw',
+        //     args: [receipStart.logs[0].data]
+        // })
+        // console.log("txFinish: ", txFinish);
+        // const receiptFinish = await waitForTransactionReceipt(config, { hash: txFinish });
+        // console.log("receiptFinish: ", receiptFinish);
     }
 
     const onChangeAmount = (event) => {
@@ -313,15 +335,15 @@ const TokenData = () => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>Unstaking</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    Please note that for security purposes, unstaking will begin a 7-day queuing period which cannot be reversed, after which you can withdraw.
-                </ModalBody>
+                    <ModalHeader>Unstaking</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        Please note that for security purposes, unstaking will begin a 7-day queuing period which cannot be reversed, after which you can withdraw.
+                    </ModalBody>
 
-                <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={onClose}> Close </Button>
-                </ModalFooter>
+                    <ModalFooter>
+                        <Button colorScheme='blue' mr={3} onClick={onClose}> Close </Button>
+                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </div>
