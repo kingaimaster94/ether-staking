@@ -39,7 +39,7 @@ const Token = (props) => {
                 <div
                     className="flex flex-row items-center justify-between bg-white shadow-md rounded-md w-full py-4 px-4">
                     <p className="font-nunito text-light-gray text-base tracking-wider font-semibold">RESTAKED</p>
-                    <h2 className="font-nunito text-light-black font-semibold text-xl md:text-lg">{props.coinData.balance}</h2>
+                    <h2 className="font-nunito text-light-black font-semibold text-xl md:text-lg">{props.coinData.balance.toFixed(2)}</h2>
                 </div>
             </span>
             <div className="absolute top-[calc(150%+0.5rem)] left-[0%] w-[20rem] lg:w-[16rem] mt-2 bg-white text-gray-800 border border-gray-300 rounded-lg shadow-lg py-2 py-2-translate-x-[50%] hidden group-hover:block h-auto break-words z-40 group-hover:z-100">
