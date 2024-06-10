@@ -193,7 +193,7 @@ export const coins = [
         tooltip: 'ETH stakers earn 1.5x Mad XP.',
         desc: `ETH is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of mwBNB is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. USDC is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
         tokenAddress: `0xd66c6B4F0be8CE5b39D52E0Fd1344c389929B378`,
-        vaultAddress: `0x362edb9A435dF0E2cb3034758B4580344bdE847f`,
+        vaultAddress: `0xB7cF8E04682244433344931F521ABBeD463E6849`,
     },
     {
         network: 'BSC Testnet',
@@ -204,7 +204,7 @@ export const coins = [
         tooltip: 'Prince stakers earn 1.5x Mad XP.',
         desc: `Prince is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of MweBTC is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. USDC is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
         tokenAddress: `0x710052dec221Ec0f6bc1e5b95852801118E9Cfab`,
-        vaultAddress: `0xBED2B62E9Ed80162Bd283d2Eb7B12c2E3fae81cB`,
+        vaultAddress: `0xF37C0505c8357f33a5f5ce2AbAB74B8a14B3b65f`,
     },
     {
         network: 'BSC Testnet',
@@ -215,7 +215,7 @@ export const coins = [
         tooltip: 'Cake stakers earn 1.5x Mad XP.',
         desc: `Cake is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of MleCake is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. USDC is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
         tokenAddress: `0xFa60D973F7642B748046464e165A65B7323b0DEE`,
-        vaultAddress: `0x01BFd097d0dAd47c527FE5c1779af749b922638e`,
+        vaultAddress: `0x907f00cb9527CD672D05889B3394EE2720513CAb`,
     },
     {
         network: 'BSC Testnet',
@@ -226,7 +226,7 @@ export const coins = [
         tooltip: 'PIE stakers earn 1.5x Mad XP.',
         desc: `PIE is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of MlseCake is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. USDC is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
         tokenAddress: `0x4248361E082B6e832F68dDC9dE34fE16DE77A271`,
-        vaultAddress: `0x40D97E6Df2aE4a18Dd2fddf433CB357303760231`,
+        vaultAddress: `0x76A915536cc5e80882B1EA4c9d4eBfc92547dCA6`,
     },
     {
         network: 'BSC Testnet',
@@ -237,6 +237,6 @@ export const coins = [
         tooltip: 'WBNB stakers earn 1.5x Mad XP.',
         desc: `WBNB is a stablecoin that is pegged to the US dollar on a 1:1 basis. Every unit of mwBNB is backed by a dollar or an equivalent asset held in reserve. It's built on various blockchain platforms including Ethereum and others, making it interoperable across different ecosystems. USDC is designed to combine the stability and reliability of a fiat currency like the US dollar with the efficiency and security of blockchain technology. It is used for a wide range of purposes, including trading, payments, and decentralized finance (DeFi) applications, providing a stable medium of exchange in the often volatile cryptocurrency markets. Please note that this asset is on the BSC Testnet network.`,
         tokenAddress: `0x47Fb20C3df2f340280B59a840516D944585b6B33`,
-        vaultAddress: `0x362edb9A435dF0E2cb3034758B4580344bdE847f`,
+        vaultAddress: `0xd3db42bDce2F906E3DF3fCd84285b1B31C110C05`,
     },    
 ];
