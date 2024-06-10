@@ -4,11 +4,11 @@ import { DepositContext } from '../../App';
 const Card = (props) => {
     const deposits = useContext(DepositContext);
 
-    if (deposits != undefined && deposits.data != undefined) {
-        let vaultAddrArray = deposits?.data[0];     // valut address array
-        let tokenAddrArray = deposits?.data[1];     // token address array
-        let stakingAmountArray = deposits?.data[2];     // staking amount array
-        let shareAmountArray = deposits?.data[3];     // share amount array
+    if (deposits != undefined && deposits.length > 3) {
+        let vaultAddrArray = deposits[0];     // valut address array
+        let tokenAddrArray = deposits[1];     // token address array
+        let stakingAmountArray = deposits[2];     // staking amount array
+        let shareAmountArray = deposits[3];     // share amount array
 
         for (let i = 0; i < tokenAddrArray.length; i++) {
             if (tokenAddrArray[i] == props.pool.tokenAddress) {

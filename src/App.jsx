@@ -28,6 +28,7 @@ function App() {
   useEffect(() => {
     if (resData && resData.data) {
       setDeposits(resData.data);
+      console.log("App.jsx : deposits changed!");
     }
   }, [resData]);
 
