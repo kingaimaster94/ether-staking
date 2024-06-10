@@ -1,5 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, TabList, Tab, TabPanels, TabPanel, AlertDescription } from '@chakra-ui/react';
+// import { Tabs, TabList, Tab, TabPanels, TabPanel, AlertDescription } from '@chakra-ui/react';
+import {
+    Tabs, 
+    TabList, 
+    Tab, 
+    TabPanels, 
+    TabPanel,
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+} from '@chakra-ui/react';
+
 import { useParams } from 'react-router-dom';
 import { coins } from '../data/coins';
 import { useAccount, useReadContract } from 'wagmi'
@@ -18,10 +35,12 @@ interface WithdrawRequest {
 }
 
 const TokenData = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const { chain, token } = useParams();
     const filteredCoins = coins.filter(coins => coins.network == chain);
     const tokens = filteredCoins.filter(filteredCoins => filteredCoins.symbol == token);
     const coin = tokens[0];
+    const [showWarning, setShowWarning] = useState(true);
 
     const { address } = useAccount();
 
@@ -59,7 +78,13 @@ const TokenData = () => {
         }
     };
 
-    const onClickGetDeposits = (event, data) => {
+    const onUnstakeTabClicked = (event, data) => {
+        if ( showWarning ) {
+            onOpen();
+
+            setShowWarning(false);
+        }
+
         if (data[0].length >= 0) {
             for (let index = 0; index < data[0].length; index++) {
                 if (coin.vaultAddress === data[0][index]) {
@@ -169,8 +194,8 @@ const TokenData = () => {
                 <div className="bg-white shadow-xl rounded-md w-full sm:w-9/12 md:w-7/12 lg:w-5/12 xl:w-[40%] lg:ml-auto h-fit">
                     <Tabs className='w-full border border-primary-orange border-b-0.2 border-l-0 border-r-0 border-t-0' variant='line'>
                         <TabList>
-                            <Tab id="tab:deposit" className="rounded-l-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }}>DEPOSIT</Tab>
-                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onClickGetDeposits(event, totalDeposits.data)}>UNSTAKE</Tab>
+                            <Tab id="tab:deposit" className="rounded-l-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => { setShowWarning(true); }}>DEPOSIT</Tab>
+                            <Tab id="tab:unstake" className="rounded-r-md font-[500] text-2xl w-6/12 p-4" _selected={{ color: 'white', bg: 'rgba(249, 237, 229)', textColor: 'orange.500' }} onClick={(event) => onUnstakeTabClicked(event, totalDeposits.data)}>UNSTAKE</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel>
@@ -262,6 +287,21 @@ const TokenData = () => {
                     </Tabs>
                 </div>
             </div>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                <ModalHeader>Unstaking</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    Please note that for security purposes, unstaking will begin a 7-day queuing period which cannot be reversed, after which you can withdraw.
+                </ModalBody>
+
+                <ModalFooter>
+                    <Button colorScheme='blue' mr={3} onClick={onClose}> Close </Button>
+                </ModalFooter>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
