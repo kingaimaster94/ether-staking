@@ -82,6 +82,13 @@ const TokenData = () => {
         args: [address],
     });
 
+    const approvedData = useReadContract({
+        address: coin.tokenAddress,
+        abi: abiIERC20,
+        functionName: `allowance`,
+        args: [address, coin.vaultAddress]
+    })
+
     useEffect(() => {
         if (balance && balance.data) {
             const ethVal = decimalToEth(balance.data);
@@ -90,9 +97,9 @@ const TokenData = () => {
         // const tokenVal = decimalFromEth(amount);
         // console.log("tokenVal: ", tokenVal);
         // setTokenBalance(tokenVal);
-        // console.log("receiptQueue: ", receiptQueue.data);
+        console.log("approvedData: ", approvedData.data);
 
-    }, [balance, amount, receiptQueue]);
+    }, [balance, amount, receiptQueue, approvedData]);
 
     const onClickMax = (event, data) => {
         const id = event.target.id;
@@ -120,13 +127,14 @@ const TokenData = () => {
     };
 
     async function onClickDeposit() {
-        // const approvedData = await readContract({
-        //     abi: abiIERC20,
-        //     address: coin.tokenAddress,
-        //     functionName: 'allowance',
-        //     args: [address, coin.vaultAddress]
-        // })
-        console.log("-----------------");
+        console.log("-----------------", coin.tokenAddress, coin.vaultAddress, address);
+        const approvedData = await readContract(config, {
+            address: coin.tokenAddress,
+            abi: abiIERC20,
+            functionName: `allowance`,
+            args: [address, coin.vaultAddress]
+        })
+        console.log("-----------------", approvedData);
         console.log(approvedAmount);
 
         if (amount > approvedAmount) {
